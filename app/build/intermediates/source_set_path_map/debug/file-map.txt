@@ -38,9 +38,9 @@ com.example.cartas.app-customview-poolingcontainer-1.0.0-36 C:\Users\juanj\.grad
 com.example.cartas.app-core-ktx-1.9.0-37 C:\Users\juanj\.gradle\caches\transforms-3\eee94ecdf5941a4a6aeff6328ddc45bc\transformed\core-ktx-1.9.0\res
 com.example.cartas.app-activity-compose-1.8.0-38 C:\Users\juanj\.gradle\caches\transforms-3\f264e20d89a7d7f067d97793d3bc4bac\transformed\activity-compose-1.8.0\res
 com.example.cartas.app-foundation-1.4.0-39 C:\Users\juanj\.gradle\caches\transforms-3\fefc16278070ba1f448b8faf49b6180b\transformed\foundation-1.4.0\res
-com.example.cartas.app-resValues-40 C:\Users\juanj\AndroidStudioProjects\2dam-u2-pr-ctica-2-ra1-ra2-carta-m-s-alta-juanjosegr\app\build\generated\res\resValues\debug
-com.example.cartas.app-packageDebugResources-41 C:\Users\juanj\AndroidStudioProjects\2dam-u2-pr-ctica-2-ra1-ra2-carta-m-s-alta-juanjosegr\app\build\intermediates\incremental\debug\packageDebugResources\merged.dir
-com.example.cartas.app-packageDebugResources-42 C:\Users\juanj\AndroidStudioProjects\2dam-u2-pr-ctica-2-ra1-ra2-carta-m-s-alta-juanjosegr\app\build\intermediates\incremental\debug\packageDebugResources\stripped.dir
-com.example.cartas.app-merged_res-43 C:\Users\juanj\AndroidStudioProjects\2dam-u2-pr-ctica-2-ra1-ra2-carta-m-s-alta-juanjosegr\app\build\intermediates\merged_res\debug
-com.example.cartas.app-debug-44 C:\Users\juanj\AndroidStudioProjects\2dam-u2-pr-ctica-2-ra1-ra2-carta-m-s-alta-juanjosegr\app\src\debug\res
-com.example.cartas.app-main-45 C:\Users\juanj\AndroidStudioProjects\2dam-u2-pr-ctica-2-ra1-ra2-carta-m-s-alta-juanjosegr\app\src\main\res
+com.example.cartas.app-resValues-40 C:\Users\juanj\AndroidStudioProjects\2dam-u2-pr-ctica-3-ra1-ra2-black-jack-juanjosegr\app\build\generated\res\resValues\debug
+com.example.cartas.app-packageDebugResources-41 C:\Users\juanj\AndroidStudioProjects\2dam-u2-pr-ctica-3-ra1-ra2-black-jack-juanjosegr\app\build\intermediates\incremental\debug\packageDebugResources\merged.dir
+com.example.cartas.app-packageDebugResources-42 C:\Users\juanj\AndroidStudioProjects\2dam-u2-pr-ctica-3-ra1-ra2-black-jack-juanjosegr\app\build\intermediates\incremental\debug\packageDebugResources\stripped.dir
+com.example.cartas.app-merged_res-43 C:\Users\juanj\AndroidStudioProjects\2dam-u2-pr-ctica-3-ra1-ra2-black-jack-juanjosegr\app\build\intermediates\merged_res\debug
+com.example.cartas.app-debug-44 C:\Users\juanj\AndroidStudioProjects\2dam-u2-pr-ctica-3-ra1-ra2-black-jack-juanjosegr\app\src\debug\res
+com.example.cartas.app-main-45 C:\Users\juanj\AndroidStudioProjects\2dam-u2-pr-ctica-3-ra1-ra2-black-jack-juanjosegr\app\src\main\res

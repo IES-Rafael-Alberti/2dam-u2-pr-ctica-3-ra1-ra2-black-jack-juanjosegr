@@ -36,6 +36,7 @@ drawable d8
 drawable d9
 drawable ic_launcher_background
 drawable ic_launcher_foreground
+drawable jvsj
 drawable n1
 drawable n10
 drawable n11
@@ -67,6 +68,7 @@ drawable tapete2
 drawable tapete3
 drawable tapete4
 drawable tapetedefinitivo
+drawable vsia
 mipmap ic_launcher
 mipmap ic_launcher_round
 string app_name

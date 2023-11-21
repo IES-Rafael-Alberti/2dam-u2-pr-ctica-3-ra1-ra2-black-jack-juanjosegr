@@ -64,6 +64,10 @@
         "source": "C:\\Users\\juanj\\.gradle\\daemon\\8.0\\com.example.cartas.app-main-46:\\drawable\\n10.png"
     },
     {
+        "merged": "com.example.cartas.app-merged_res-44:/drawable_jvsj.jpg.flat",
+        "source": "com.example.cartas.app-main-46:/drawable/jvsj.jpg"
+    },
+    {
         "merged": "C:\\Users\\juanj\\.gradle\\daemon\\8.0\\com.example.cartas.app-merged_res-44:\\drawable_n4.png.flat",
         "source": "C:\\Users\\juanj\\.gradle\\daemon\\8.0\\com.example.cartas.app-main-46:\\drawable\\n4.png"
     },
@@ -98,6 +102,10 @@
     {
         "merged": "C:\\Users\\juanj\\.gradle\\daemon\\8.0\\com.example.cartas.app-merged_res-44:\\drawable_n13.png.flat",
         "source": "C:\\Users\\juanj\\.gradle\\daemon\\8.0\\com.example.cartas.app-main-46:\\drawable\\n13.png"
+    },
+    {
+        "merged": "C:\\Users\\juanj\\.gradle\\daemon\\8.0\\com.example.cartas.app-merged_res-44:\\drawable_vsia.jpg.flat",
+        "source": "C:\\Users\\juanj\\.gradle\\daemon\\8.0\\com.example.cartas.app-main-46:\\drawable\\vsia.jpg"
     },
     {
         "merged": "C:\\Users\\juanj\\.gradle\\daemon\\8.0\\com.example.cartas.app-merged_res-44:\\drawable_c10.png.flat",
@@ -166,10 +174,6 @@
     {
         "merged": "C:\\Users\\juanj\\.gradle\\daemon\\8.0\\com.example.cartas.app-merged_res-44:\\drawable_c9.png.flat",
         "source": "C:\\Users\\juanj\\.gradle\\daemon\\8.0\\com.example.cartas.app-main-46:\\drawable\\c9.png"
-    },
-    {
-        "merged": "com.example.cartas.app-merged_res-44:/drawable_tapete4.jpg.flat",
-        "source": "com.example.cartas.app-main-46:/drawable/tapete4.jpg"
     },
     {
         "merged": "C:\\Users\\juanj\\.gradle\\daemon\\8.0\\com.example.cartas.app-merged_res-44:\\drawable_n1.png.flat",
