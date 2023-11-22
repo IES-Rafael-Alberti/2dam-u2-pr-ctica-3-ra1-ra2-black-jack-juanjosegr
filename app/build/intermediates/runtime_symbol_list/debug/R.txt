@@ -88,6 +88,7 @@ int drawable c6 0x7f04000b
 int drawable c7 0x7f04000c
 int drawable c8 0x7f04000d
 int drawable c9 0x7f04000e
+int drawable cartaabajoguapa 0x7f040056
 int drawable d1 0x7f04000f
 int drawable d10 0x7f040010
 int drawable d11 0x7f040011
@@ -109,6 +110,8 @@ int drawable ic_call_decline 0x7f040020
 int drawable ic_call_decline_low 0x7f040021
 int drawable ic_launcher_background 0x7f040022
 int drawable ic_launcher_foreground 0x7f040023
+int drawable jugadorvsia 0x7f040055
+int drawable jugadorvsjugador 0x7f040054
 int drawable jvsj 0x7f040024
 int drawable n1 0x7f040025
 int drawable n10 0x7f040026
@@ -148,11 +151,11 @@ int drawable t6 0x7f040047
 int drawable t7 0x7f040048
 int drawable t8 0x7f040049
 int drawable t9 0x7f04004a
-int drawable tapete 0x7f04004b
-int drawable tapete2 0x7f04004c
-int drawable tapete3 0x7f04004d
 int drawable tapete4 0x7f04004e
 int drawable tapetedefinitivo 0x7f04004f
+int drawable tapeteia 0x7f040051
+int drawable tapetejugadores 0x7f040052
+int drawable tapetepro 0x7f040053
 int drawable vsia 0x7f040050
 int id accessibility_action_clickable_span 0x7f050000
 int id accessibility_custom_action_0 0x7f050001

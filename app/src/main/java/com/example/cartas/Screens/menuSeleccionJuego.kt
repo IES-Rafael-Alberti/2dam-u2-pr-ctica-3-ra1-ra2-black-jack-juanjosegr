@@ -25,7 +25,7 @@ import com.example.cartas.model.Routes
 @Composable
 fun MenuPrincipal(navController: NavHostController) {
 
-    MostrarTapete(R.drawable.tapetedefinitivo)
+    MostrarTapete(R.drawable.tapeteia)
     SelectorMenus(navController)
 
 }
@@ -40,9 +40,9 @@ fun SelectorMenus(navController: NavHostController) {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            MostrarImagenesJuego(R.drawable.jvsj)
+            MostrarImagenesJuego(R.drawable.jugadorvsjugador)
             Spacer(modifier = Modifier.height(32.dp))
-            MostrarImagenesJuego(R.drawable.vsia)
+            MostrarImagenesJuego(R.drawable.jugadorvsia)
         }
 
         Column(
@@ -79,4 +79,25 @@ fun MostrarImagenesJuego(@DrawableRes imprimirRedIdJugadores: Int) {
             .size(width = 250.dp, height = 200.dp),
         contentScale = ContentScale.FillBounds
     )
+}
+
+@Composable
+fun MostrarTapete(@DrawableRes tapeteImprimirResId: Int) {
+    Image(
+        painter = painterResource(id = tapeteImprimirResId),
+        contentDescription = "",
+        modifier = Modifier.fillMaxSize(),
+        contentScale = ContentScale.FillBounds
+    )
+}
+
+@Composable
+fun BotonVolverAlMenu(navController: NavHostController) {
+    Button(
+        onClick = {
+            navController.navigate(Routes.PantallaInicio.route)
+        },
+    ) {
+        Text(text = "Volver al Menú Principal")
+    }
 }

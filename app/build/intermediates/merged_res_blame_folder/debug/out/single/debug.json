@@ -4,6 +4,10 @@
         "source": "C:\\Users\\juanj\\.gradle\\daemon\\8.0\\com.example.cartas.app-main-52:\\drawable\\c6.png"
     },
     {
+        "merged": "C:\\Users\\juanj\\.gradle\\daemon\\8.0\\com.example.cartas.app-merged_res-50:\\drawable_tapetejugadores.jpg.flat",
+        "source": "C:\\Users\\juanj\\.gradle\\daemon\\8.0\\com.example.cartas.app-main-52:\\drawable\\tapetejugadores.jpg"
+    },
+    {
         "merged": "C:\\Users\\juanj\\.gradle\\daemon\\8.0\\com.example.cartas.app-merged_res-50:\\drawable_n2.png.flat",
         "source": "C:\\Users\\juanj\\.gradle\\daemon\\8.0\\com.example.cartas.app-main-52:\\drawable\\n2.png"
     },
@@ -32,16 +36,16 @@
         "source": "C:\\Users\\juanj\\.gradle\\daemon\\8.0\\com.example.cartas.app-main-52:\\mipmap-xxhdpi\\ic_launcher_round.webp"
     },
     {
-        "merged": "com.example.cartas.app-merged_res-50:/drawable_vsia.jpg.flat",
-        "source": "com.example.cartas.app-main-52:/drawable/vsia.jpg"
-    },
-    {
         "merged": "C:\\Users\\juanj\\.gradle\\daemon\\8.0\\com.example.cartas.app-merged_res-50:\\drawable_t2.png.flat",
         "source": "C:\\Users\\juanj\\.gradle\\daemon\\8.0\\com.example.cartas.app-main-52:\\drawable\\t2.png"
     },
     {
         "merged": "C:\\Users\\juanj\\.gradle\\daemon\\8.0\\com.example.cartas.app-merged_res-50:\\drawable_c9.png.flat",
         "source": "C:\\Users\\juanj\\.gradle\\daemon\\8.0\\com.example.cartas.app-main-52:\\drawable\\c9.png"
+    },
+    {
+        "merged": "C:\\Users\\juanj\\.gradle\\daemon\\8.0\\com.example.cartas.app-merged_res-50:\\drawable_cartaabajoguapa.jpg.flat",
+        "source": "C:\\Users\\juanj\\.gradle\\daemon\\8.0\\com.example.cartas.app-main-52:\\drawable\\cartaabajoguapa.jpg"
     },
     {
         "merged": "C:\\Users\\juanj\\.gradle\\daemon\\8.0\\com.example.cartas.app-merged_res-50:\\drawable_d7.png.flat",
@@ -68,6 +72,10 @@
         "source": "C:\\Users\\juanj\\.gradle\\daemon\\8.0\\com.example.cartas.app-main-52:\\xml\\backup_rules.xml"
     },
     {
+        "merged": "C:\\Users\\juanj\\.gradle\\daemon\\8.0\\com.example.cartas.app-merged_res-50:\\drawable_tapeteia.jpg.flat",
+        "source": "C:\\Users\\juanj\\.gradle\\daemon\\8.0\\com.example.cartas.app-main-52:\\drawable\\tapeteia.jpg"
+    },
+    {
         "merged": "C:\\Users\\juanj\\.gradle\\daemon\\8.0\\com.example.cartas.app-merged_res-50:\\mipmap-hdpi_ic_launcher.webp.flat",
         "source": "C:\\Users\\juanj\\.gradle\\daemon\\8.0\\com.example.cartas.app-main-52:\\mipmap-hdpi\\ic_launcher.webp"
     },
@@ -78,6 +86,10 @@
     {
         "merged": "C:\\Users\\juanj\\.gradle\\daemon\\8.0\\com.example.cartas.app-merged_res-50:\\drawable_t11.png.flat",
         "source": "C:\\Users\\juanj\\.gradle\\daemon\\8.0\\com.example.cartas.app-main-52:\\drawable\\t11.png"
+    },
+    {
+        "merged": "C:\\Users\\juanj\\.gradle\\daemon\\8.0\\com.example.cartas.app-merged_res-50:\\drawable_jugadorvsia.jpg.flat",
+        "source": "C:\\Users\\juanj\\.gradle\\daemon\\8.0\\com.example.cartas.app-main-52:\\drawable\\jugadorvsia.jpg"
     },
     {
         "merged": "C:\\Users\\juanj\\.gradle\\daemon\\8.0\\com.example.cartas.app-merged_res-50:\\drawable_c12.png.flat",
@@ -94,6 +106,10 @@
     {
         "merged": "C:\\Users\\juanj\\.gradle\\daemon\\8.0\\com.example.cartas.app-merged_res-50:\\drawable_c2.png.flat",
         "source": "C:\\Users\\juanj\\.gradle\\daemon\\8.0\\com.example.cartas.app-main-52:\\drawable\\c2.png"
+    },
+    {
+        "merged": "C:\\Users\\juanj\\.gradle\\daemon\\8.0\\com.example.cartas.app-merged_res-50:\\drawable_tapetepro.jpg.flat",
+        "source": "C:\\Users\\juanj\\.gradle\\daemon\\8.0\\com.example.cartas.app-main-52:\\drawable\\tapetepro.jpg"
     },
     {
         "merged": "C:\\Users\\juanj\\.gradle\\daemon\\8.0\\com.example.cartas.app-merged_res-50:\\drawable_tapete3.jpg.flat",
@@ -246,6 +262,14 @@
     {
         "merged": "C:\\Users\\juanj\\.gradle\\daemon\\8.0\\com.example.cartas.app-merged_res-50:\\mipmap-mdpi_ic_launcher_round.webp.flat",
         "source": "C:\\Users\\juanj\\.gradle\\daemon\\8.0\\com.example.cartas.app-main-52:\\mipmap-mdpi\\ic_launcher_round.webp"
+    },
+    {
+        "merged": "C:\\Users\\juanj\\.gradle\\daemon\\8.0\\com.example.cartas.app-merged_res-50:\\drawable_jugadorvsjugador.jpg.flat",
+        "source": "C:\\Users\\juanj\\.gradle\\daemon\\8.0\\com.example.cartas.app-main-52:\\drawable\\jugadorvsjugador.jpg"
+    },
+    {
+        "merged": "com.example.cartas.app-merged_res-50:/drawable_cartaabajoguapa.jpg.flat",
+        "source": "com.example.cartas.app-main-52:/drawable/cartaabajoguapa.jpg"
     },
     {
         "merged": "C:\\Users\\juanj\\.gradle\\daemon\\8.0\\com.example.cartas.app-merged_res-50:\\drawable_t9.png.flat",

@@ -89,6 +89,7 @@ drawable c6
 drawable c7
 drawable c8
 drawable c9
+drawable cartaabajoguapa
 drawable d1
 drawable d10
 drawable d11
@@ -110,6 +111,8 @@ drawable ic_call_decline
 drawable ic_call_decline_low
 drawable ic_launcher_background
 drawable ic_launcher_foreground
+drawable jugadorvsia
+drawable jugadorvsjugador
 drawable jvsj
 drawable n1
 drawable n10
@@ -149,11 +152,11 @@ drawable t6
 drawable t7
 drawable t8
 drawable t9
-drawable tapete
-drawable tapete2
-drawable tapete3
 drawable tapete4
 drawable tapetedefinitivo
+drawable tapeteia
+drawable tapetejugadores
+drawable tapetepro
 drawable vsia
 id accessibility_action_clickable_span
 id accessibility_custom_action_0
