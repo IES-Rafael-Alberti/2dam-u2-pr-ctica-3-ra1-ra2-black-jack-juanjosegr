@@ -1,5 +1,6 @@
 package com.example.cartas.Screens
 
+import android.content.Context
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -27,12 +28,15 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.navigation.NavHostController
 import com.example.cartas.R
 import com.example.cartas.funciones.Baraja
 import com.example.cartas.funciones.Baraja.Companion.obtenerNombreRecurso
+import com.example.cartas.model.Routes
+
 
 @Composable
-fun Juego() {
+fun Juego2Jugador(navController: NavHostController) {
 
     val context = LocalContext.current
     var cartaBocaAbajo by rememberSaveable { mutableStateOf("abajo") }
@@ -46,7 +50,7 @@ fun Juego() {
         )
     }
 
-    var cartaBocaArribaPlayer2 by rememberSaveable {
+    val cartaBocaArribaPlayer2 by rememberSaveable {
         mutableStateOf(
             context.resources.getIdentifier(
                 cartaBocaAbajo,
@@ -57,59 +61,37 @@ fun Juego() {
     }
 
     MostrarTapete(R.drawable.tapete4)
-
     MostrarJugador1(cartaBocaArriba)
-
     MostrarJugador2(cartaBocaArribaPlayer2)
 
+    BotonesJuego(
+        onDameCartaClick = {
+            Baraja.barajar()
+            if (Baraja.listaCartas.size == 0) {
+                Baraja.crearBaraja()
+                cartaBocaAbajo = "abajo"
+            }
+            val cartaNueva = Baraja.dameCarta()
+            cartaNueva.let {
+                cartaBocaAbajo = obtenerNombreRecurso(it)
+                cartaBocaArriba = actualizarCartaBocaArriba(cartaBocaAbajo, context)
+            }
+            println("$cartaNueva || $cartaBocaAbajo || ${Baraja.listaCartas.size}")
 
-    Column(
-        Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Bottom,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Row(
-            Modifier.padding(20.dp),
-        ) {
-            Button(
-                onClick = {
-                    Baraja.barajar()
-                    if (Baraja.listaCartas.size == 0) {
-                        Baraja.crearBaraja()
-                        cartaBocaAbajo = "abajo"
-                    }
-                    val cartaNueva = Baraja.dameCarta()
-                    cartaBocaAbajo = obtenerNombreRecurso(cartaNueva)
-                    println("$cartaNueva || $cartaBocaAbajo || ${Baraja.listaCartas.size}")
-                }, modifier = Modifier.padding(end = 10.dp),
-                colors = ButtonDefaults.textButtonColors(Color.Red)
-            ) {
-                Text(
-                    text = "Dame carta",
-                    color = Color.White
-                )
-            }
-            Button(
-                onClick = {
-                    Baraja.crearBaraja()
-                    Baraja.barajar()
-                    cartaBocaAbajo = "abajo"
-                },
-                colors = ButtonDefaults.textButtonColors(Color.Red)
-            ) {
-                Text(
-                    text = "Barajar",
-                    color = Color.White
-                )
-            }
+            cartaBocaArriba = actualizarCartaBocaArriba(cartaBocaAbajo, context)
+        },
+        onBarajarClick = {
+            Baraja.crearBaraja()
+            Baraja.barajar()
+            cartaBocaAbajo = "abajo"
+
+            cartaBocaArriba = actualizarCartaBocaArriba(cartaBocaAbajo, context)
+
+            Baraja.reiniciarCartas()
         }
-    }
+    )
 
-    LaunchedEffect(cartaBocaAbajo) {
-        val carta = context.resources.getIdentifier(cartaBocaAbajo, "drawable", context.packageName)
-        cartaBocaArriba = carta
-    }
-
+    BotonVolverAlMenu(navController)
 
 }
 
@@ -171,3 +153,53 @@ fun MostrarJugador2(cartaBocaArribaPlayer2: Int) {
 
 }
 
+@Composable
+fun BotonesJuego(
+    onDameCartaClick: () -> Unit,
+    onBarajarClick: () -> Unit
+) {
+    Column(
+        Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Bottom,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Row(
+            Modifier.padding(20.dp),
+        ) {
+            Button(
+                onClick = { onDameCartaClick() },
+                modifier = Modifier.padding(end = 10.dp),
+                colors = ButtonDefaults.textButtonColors(Color.Red)
+            ) {
+                Text(
+                    text = "Dame carta",
+                    color = Color.White
+                )
+            }
+            Button(
+                onClick = { onBarajarClick() },
+                colors = ButtonDefaults.textButtonColors(Color.Red)
+            ) {
+                Text(
+                    text = "Barajar",
+                    color = Color.White
+                )
+            }
+        }
+    }
+}
+
+fun actualizarCartaBocaArriba(carta: String, context: Context): Int {
+    return context.resources.getIdentifier(carta, "drawable", context.packageName)
+}
+
+@Composable
+fun BotonVolverAlMenu(navController: NavHostController) {
+    Button(
+        onClick = {
+            navController.navigate(Routes.PantallaInicio.route)
+        },
+    ) {
+        Text(text = "Volver al Menú Principal")
+    }
+}

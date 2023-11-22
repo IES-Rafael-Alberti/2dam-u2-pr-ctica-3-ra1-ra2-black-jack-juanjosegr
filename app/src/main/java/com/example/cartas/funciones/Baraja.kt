@@ -32,7 +32,22 @@ class Baraja {
         }
 
         fun dameCarta(): Carta {
-            return listaCartas.removeLast()
+            if (listaCartas.isEmpty()) {
+                crearBaraja()
+                reiniciarCartas()
+                return listaCartas.removeLast()
+            }
+            val carta = listaCartas.removeLast()
+            return if (!carta.usada) {
+                carta.usada = true
+                carta
+            } else {
+                dameCarta()
+            }
+        }
+
+        fun reiniciarCartas() {
+            listaCartas.forEach { it.usada = false }
         }
 
         fun obtenerNombreRecurso(carta: Carta): String {

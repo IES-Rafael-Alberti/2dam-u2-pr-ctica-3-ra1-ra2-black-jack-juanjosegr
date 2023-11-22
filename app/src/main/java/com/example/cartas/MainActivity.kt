@@ -3,24 +3,28 @@ package com.example.cartas
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.ui.Modifier
-import com.example.cartas.Screens.Juego
-import com.example.cartas.Screens.MenuPrinciapl
-import com.example.cartas.ui.theme.CartasTheme
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.example.cartas.Screens.*
+import com.example.cartas.model.Routes
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            CartasTheme {
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    MenuPrinciapl()
+            val navController = rememberNavController()
+
+            NavHost(
+                navController = navController,
+                startDestination = Routes.PantallaInicio.route
+            ) {
+                composable(Routes.PantallaInicio.route) { MenuPrincipal(navController) }
+                composable(Routes.PantallaVsJugador.route) {
+                    Juego2Jugador(navController)
+                }
+                composable(Routes.PantallaVsIa.route) {
+                    JuegoVsIa(navController)
                 }
             }
         }
