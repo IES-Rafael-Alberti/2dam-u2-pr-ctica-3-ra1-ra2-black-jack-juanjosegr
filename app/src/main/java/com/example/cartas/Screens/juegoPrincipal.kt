@@ -40,15 +40,8 @@ fun Juego2Jugador(navController: NavHostController) {
 
     val context = LocalContext.current
     var cartaBocaAbajo by rememberSaveable { mutableStateOf("abajo") }
-    var cartaBocaArriba by rememberSaveable {
-        mutableStateOf(
-            context.resources.getIdentifier(
-                cartaBocaAbajo,
-                "drawable",
-                context.packageName
-            )
-        )
-    }
+
+    var cartaBocaArriba by rememberSaveable { mutableStateOf<Int?>(null) }
 
     val cartaBocaArribaPlayer2 by rememberSaveable {
         mutableStateOf(
@@ -67,7 +60,7 @@ fun Juego2Jugador(navController: NavHostController) {
     BotonesJuego(
         onDameCartaClick = {
             Baraja.barajar()
-            if (Baraja.listaCartas.size == 0) {
+            if (Baraja.listaCartas.isEmpty()) {
                 Baraja.crearBaraja()
                 cartaBocaAbajo = "abajo"
             }
@@ -76,17 +69,12 @@ fun Juego2Jugador(navController: NavHostController) {
                 cartaBocaAbajo = obtenerNombreRecurso(it)
                 cartaBocaArriba = actualizarCartaBocaArriba(cartaBocaAbajo, context)
             }
-            println("$cartaNueva || $cartaBocaAbajo || ${Baraja.listaCartas.size}")
-
-            cartaBocaArriba = actualizarCartaBocaArriba(cartaBocaAbajo, context)
         },
         onBarajarClick = {
             Baraja.crearBaraja()
             Baraja.barajar()
             cartaBocaAbajo = "abajo"
-
-            cartaBocaArriba = actualizarCartaBocaArriba(cartaBocaAbajo, context)
-
+            cartaBocaArriba = null
             Baraja.reiniciarCartas()
         }
     )
@@ -97,16 +85,16 @@ fun Juego2Jugador(navController: NavHostController) {
 
 @Composable
 fun MostrarTapete(@DrawableRes tapeteImprimirResId: Int) {
-        Image(
-            painter = painterResource(id = tapeteImprimirResId),
-            contentDescription = "",
-            modifier = Modifier.fillMaxSize(),
-            contentScale = ContentScale.FillBounds
-        )
+    Image(
+        painter = painterResource(id = tapeteImprimirResId),
+        contentDescription = "",
+        modifier = Modifier.fillMaxSize(),
+        contentScale = ContentScale.FillBounds
+    )
 }
 
 @Composable
-fun MostrarJugador1(cartaBocaArriba: Int) {
+fun MostrarJugador1(cartaBocaArriba: Int?) {
     Column(
         Modifier
             .fillMaxSize()
@@ -122,14 +110,18 @@ fun MostrarJugador1(cartaBocaArriba: Int) {
                     .size(300.dp)
                     .scale(0.5f)
             )
-            Image(
-                painter = painterResource(id = cartaBocaArriba),
-                contentDescription = "",
-                modifier = Modifier
-                    .size(300.dp)
-                    .scale(0.5f)
-                    .offset(y = (-320).dp)
-            )
+            if (cartaBocaArriba != null) {
+                Image(
+                    painter = painterResource(id = cartaBocaArriba!!),
+                    contentDescription = "",
+                    modifier = Modifier
+                        .size(300.dp)
+                        .scale(0.5f)
+                        .offset(y = (-320).dp)
+                )
+            } else {
+                //No hacer nada
+            }
         }
     }
 }

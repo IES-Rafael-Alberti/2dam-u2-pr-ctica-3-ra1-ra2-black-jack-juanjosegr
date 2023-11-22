@@ -19,15 +19,8 @@ fun JuegoVsIa(navController: NavHostController) {
 
     val context = LocalContext.current
     var cartaBocaAbajo by rememberSaveable { mutableStateOf("abajo") }
-    var cartaBocaArriba by rememberSaveable {
-        mutableStateOf(
-            context.resources.getIdentifier(
-                cartaBocaAbajo,
-                "drawable",
-                context.packageName
-            )
-        )
-    }
+
+    var cartaBocaArriba by rememberSaveable { mutableStateOf<Int?>(null) }
 
     val cartaBocaArribaPlayer2 by rememberSaveable {
         mutableStateOf(
@@ -46,7 +39,7 @@ fun JuegoVsIa(navController: NavHostController) {
     BotonesJuego(
         onDameCartaClick = {
             Baraja.barajar()
-            if (Baraja.listaCartas.size == 0) {
+            if (Baraja.listaCartas.isEmpty()) {
                 Baraja.crearBaraja()
                 cartaBocaAbajo = "abajo"
             }
@@ -55,20 +48,14 @@ fun JuegoVsIa(navController: NavHostController) {
                 cartaBocaAbajo = Baraja.obtenerNombreRecurso(it)
                 cartaBocaArriba = actualizarCartaBocaArriba(cartaBocaAbajo, context)
             }
-            println("$cartaNueva || $cartaBocaAbajo || ${Baraja.listaCartas.size}")
-
-            cartaBocaArriba = actualizarCartaBocaArriba(cartaBocaAbajo, context)
         },
         onBarajarClick = {
             Baraja.crearBaraja()
             Baraja.barajar()
             cartaBocaAbajo = "abajo"
-
-            cartaBocaArriba = actualizarCartaBocaArriba(cartaBocaAbajo, context)
-
+            cartaBocaArriba = null
             Baraja.reiniciarCartas()
         }
     )
-
     BotonVolverAlMenu(navController)
 }
