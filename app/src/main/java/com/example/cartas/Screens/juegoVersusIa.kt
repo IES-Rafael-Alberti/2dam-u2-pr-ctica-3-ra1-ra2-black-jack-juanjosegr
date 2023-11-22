@@ -1,10 +1,10 @@
 package com.example.cartas.Screens
 
 
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
+
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -12,7 +12,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import com.example.cartas.R
 import com.example.cartas.funciones.Baraja
-import com.example.cartas.model.Routes
 
 @Composable
 fun JuegoVsIa(navController: NavHostController) {
@@ -23,7 +22,7 @@ fun JuegoVsIa(navController: NavHostController) {
     var cartaBocaArriba by rememberSaveable { mutableStateOf<Int?>(null) }
 
     val cartaBocaArribaPlayer2 by rememberSaveable {
-        mutableStateOf(
+        mutableIntStateOf(
             context.resources.getIdentifier(
                 cartaBocaAbajo,
                 "drawable",
@@ -33,7 +32,7 @@ fun JuegoVsIa(navController: NavHostController) {
     }
 
     MostrarTapete(R.drawable.tapete4)
-    MostrarJugador1(cartaBocaArriba)
+    //MostrarJugador1(cartaBocaArriba)
     MostrarJugador2(cartaBocaArribaPlayer2)
 
     BotonesJuego(

@@ -71,9 +71,9 @@ fun SelectorMenus(navController: NavHostController) {
 }
 
 @Composable
-fun MostrarImagenesJuego(@DrawableRes tapeteImprimirResId: Int) {
+fun MostrarImagenesJuego(@DrawableRes imprimirRedIdJugadores: Int) {
     Image(
-        painter = painterResource(id = tapeteImprimirResId),
+        painter = painterResource(id = imprimirRedIdJugadores),
         contentDescription = "",
         modifier = Modifier
             .size(width = 250.dp, height = 200.dp),

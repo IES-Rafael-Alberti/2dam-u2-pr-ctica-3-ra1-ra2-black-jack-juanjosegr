@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.runtime.Composable
@@ -24,7 +25,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.material3.Text
-import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -32,6 +34,7 @@ import androidx.navigation.NavHostController
 import com.example.cartas.R
 import com.example.cartas.funciones.Baraja
 import com.example.cartas.funciones.Baraja.Companion.obtenerNombreRecurso
+import com.example.cartas.funciones.Jugador
 import com.example.cartas.model.Routes
 
 
@@ -44,7 +47,7 @@ fun Juego2Jugador(navController: NavHostController) {
     var cartaBocaArriba by rememberSaveable { mutableStateOf<Int?>(null) }
 
     val cartaBocaArribaPlayer2 by rememberSaveable {
-        mutableStateOf(
+        mutableIntStateOf(
             context.resources.getIdentifier(
                 cartaBocaAbajo,
                 "drawable",
@@ -53,10 +56,16 @@ fun Juego2Jugador(navController: NavHostController) {
         )
     }
 
-    MostrarTapete(R.drawable.tapete4)
-    MostrarJugador1(cartaBocaArriba)
-    MostrarJugador2(cartaBocaArribaPlayer2)
+    var jugador1 = remember { Jugador() }
+    var jugador2 = remember { Jugador() }
+    var cartasBocaArribaJugador1 by remember { mutableStateOf(listOf<Int>()) }
 
+
+
+    MostrarTapete(R.drawable.tapete4)
+    MostrarCartasJugador1(cartasBocaArribaJugador1)
+    MostrarJugador2(cartaBocaArribaPlayer2)
+    MostrarCartaBocaAbajo()
     BotonesJuego(
         onDameCartaClick = {
             Baraja.barajar()
@@ -68,6 +77,12 @@ fun Juego2Jugador(navController: NavHostController) {
             cartaNueva.let {
                 cartaBocaAbajo = obtenerNombreRecurso(it)
                 cartaBocaArriba = actualizarCartaBocaArriba(cartaBocaAbajo, context)
+
+                if (cartaBocaArriba != null && cartaBocaArriba !in cartasBocaArribaJugador1) {
+                    cartasBocaArribaJugador1 = cartasBocaArribaJugador1.toMutableList().apply {
+                        add(cartaBocaArriba!!)
+                    }
+                }
             }
         },
         onBarajarClick = {
@@ -94,7 +109,36 @@ fun MostrarTapete(@DrawableRes tapeteImprimirResId: Int) {
 }
 
 @Composable
-fun MostrarJugador1(cartaBocaArriba: Int?) {
+fun MostrarCartasJugador1(cartasBocaArriba: List<Int>) {
+    Column(
+        Modifier
+            .fillMaxSize()
+            .padding(bottom = 25.dp),
+        verticalArrangement = Arrangement.Bottom,
+        horizontalAlignment = Alignment.Start
+    ) {
+        Box{
+            LazyRow(
+                content = {
+                    items(cartasBocaArriba.size) { index ->
+                        val carta = cartasBocaArriba[index]
+                        Image(
+                            painter = painterResource(id = carta),
+                            contentDescription = "",
+                            modifier = Modifier
+                                .size(300.dp)
+                                .scale(0.4f)
+                                .offset(y = (-320).dp)
+                        )
+                    }
+                },
+            )
+        }
+    }
+}
+
+@Composable
+fun MostrarCartaBocaAbajo() {
     Column(
         Modifier
             .fillMaxSize()
@@ -108,20 +152,8 @@ fun MostrarJugador1(cartaBocaArriba: Int?) {
                 contentDescription = "",
                 modifier = Modifier
                     .size(300.dp)
-                    .scale(0.5f)
+                    .scale(0.4f)
             )
-            if (cartaBocaArriba != null) {
-                Image(
-                    painter = painterResource(id = cartaBocaArriba!!),
-                    contentDescription = "",
-                    modifier = Modifier
-                        .size(300.dp)
-                        .scale(0.5f)
-                        .offset(y = (-320).dp)
-                )
-            } else {
-                //No hacer nada
-            }
         }
     }
 }
@@ -139,7 +171,7 @@ fun MostrarJugador2(cartaBocaArribaPlayer2: Int) {
             contentDescription = "",
             modifier = Modifier
                 .size(300.dp)
-                .scale(0.5f)
+                .scale(0.4f)
         )
     }
 

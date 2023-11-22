@@ -19,7 +19,9 @@ class MainActivity : ComponentActivity() {
                 navController = navController,
                 startDestination = Routes.PantallaInicio.route
             ) {
-                composable(Routes.PantallaInicio.route) { MenuPrincipal(navController) }
+                composable(Routes.PantallaInicio.route) {
+                    MenuPrincipal(navController)
+                }
                 composable(Routes.PantallaVsJugador.route) {
                     Juego2Jugador(navController)
                 }
