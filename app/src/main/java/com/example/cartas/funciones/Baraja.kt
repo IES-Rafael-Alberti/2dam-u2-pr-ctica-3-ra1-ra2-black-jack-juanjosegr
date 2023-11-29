@@ -1,8 +1,5 @@
 package com.example.cartas.funciones
 
-import com.example.cartas.Screens.obtenerValorCarta
-
-
 enum class Palos {
     CORAZONES, DIAMANTES, TREBOLES, PICAS
 }
@@ -23,8 +20,6 @@ class Baraja {
                     val cartaNueva =
                         Carta(numero, palo, numero.ordinal + 1, numero.ordinal + 1, idDrawable)
                     if (numero.name == "AS") cartaNueva.puntosMax = 11
-                    println("Carta: $cartaNueva")
-
                     listaCartas.add(cartaNueva)
                     idDrawable++
                 }
@@ -42,8 +37,6 @@ class Baraja {
                 return listaCartas.removeLast()
             }
             val carta = listaCartas.removeLast()
-            println("Carta obtenida: $carta - Valor asignado: ${obtenerValorCarta(carta.idDrawable)}")
-
             return if (!carta.usada) {
                 carta.usada = true
                 carta
@@ -51,7 +44,9 @@ class Baraja {
                 dameCarta()
             }
         }
-
+        fun calcularPuntaje(cartas: List<Carta>): Int {
+            return cartas.sumBy { it.puntosMin }
+        }
         fun reiniciarCartas() {
             listaCartas.forEach { it.usada = false }
         }

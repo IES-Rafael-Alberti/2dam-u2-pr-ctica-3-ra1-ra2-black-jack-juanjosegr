@@ -24,6 +24,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.material3.Text
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.sp
@@ -53,6 +54,11 @@ fun Juego2Jugador(navController: NavHostController) {
     var textoPlantadoJug1 by remember { mutableStateOf("Dame carta") }
     var textoPlantadoJug2 by remember { mutableStateOf("Dame carta") }
 
+    var cartasJugador1 by remember { mutableStateOf(listOf<Carta>()) }
+    var cartasJugador2 by remember { mutableStateOf(listOf<Carta>()) }
+
+    var puntajeJugador1 by remember { mutableIntStateOf(0) }
+    var puntajeJugador2 by remember { mutableIntStateOf(0) }
 
     MostrarTapete(R.drawable.tapetepro)
     MostrarCartaBocaAbajo()
@@ -77,6 +83,8 @@ fun Juego2Jugador(navController: NavHostController) {
                         listaCartasBocaArribaJugador1 += cartaActualizada
                     }
                 }
+                cartasJugador1 += cartaNueva
+                puntajeJugador1 = Baraja.calcularPuntaje(cartasJugador1)
             }
         },
         onPlantarseClick = {
@@ -103,6 +111,8 @@ fun Juego2Jugador(navController: NavHostController) {
                         listaCartasBocaArribaJugador2 += cartaActualizada
                     }
                 }
+                cartasJugador2 += cartaNueva
+                puntajeJugador2 = Baraja.calcularPuntaje(cartasJugador2)
             }
         },
         onPlantarseClick = {
@@ -116,19 +126,31 @@ fun Juego2Jugador(navController: NavHostController) {
         onBarajarClick = {
             Baraja.crearBaraja()
             Baraja.barajar()
+            Baraja.reiniciarCartas()
             barajasNuevasJug1 = "abajo"
+            barajasNuevasJug2 = "abajo"
             cartaBocaArribaJugador1 = null
             cartaBocaArribaJugador2 = null
-            Baraja.reiniciarCartas()
             listaCartasBocaArribaJugador1 = emptyList()
             listaCartasBocaArribaJugador2 = emptyList()
             permitirObtenerCarta1 = true
             permitirObtenerCarta2 = true
             textoPlantadoJug1 = "Dame carta"
             textoPlantadoJug2 = "Dame carta"
+            puntajeJugador1 = 0
+            puntajeJugador2 = 0
+            cartasJugador1 = emptyList()
+            cartasJugador2 = emptyList()
         })
+
     BotonVolverAlMenu(navController)
-    TextosEnPantalla(name1 = "Elian", name2 = "Daniel", cartasJugador1 = listaCartasBocaArribaJugador1, cartasJugador2 = listaCartasBocaArribaJugador2)
+
+    TextosEnPantalla(
+        name1 = "Elian",
+        name2 = "Daniel",
+        puntajeJugador1 = puntajeJugador1,
+        puntajeJugador2 = puntajeJugador2,
+    )
 }
 
 @Composable
@@ -341,9 +363,7 @@ fun actualizarCartaBocaArriba(carta: String, context: Context): Int {
 }
 
 @Composable
-fun TextosEnPantalla(name1: String, name2: String, cartasJugador1: List<Int>, cartasJugador2: List<Int>) {
-    val puntajeJugador1 = calcularPuntajeTotal(cartasJugador1)
-    val puntajeJugador2 = calcularPuntajeTotal(cartasJugador2)
+fun TextosEnPantalla (name1: String,name2: String,puntajeJugador1: Int,puntajeJugador2: Int) {
     Box(
         Modifier.fillMaxSize()
     ) {
@@ -365,54 +385,3 @@ fun TextosEnPantalla(name1: String, name2: String, cartasJugador1: List<Int>, ca
             )
     }
 }
-
-fun calcularPuntajeTotal(cartas: List<Int>): Int {
-    var puntajeTotal = 0
-    for (carta in cartas) {
-
-        val valorCarta = obtenerValorCarta(carta)
-        puntajeTotal += valorCarta
-
-        println("ID de la carta: $carta - Valor de la carta: $valorCarta - Puntaje Total: $puntajeTotal")
-
-    }
-    return puntajeTotal
-}
-
-fun obtenerValorCarta(idCarta: Int): Int {
-    val numeroCarta = idCarta
-    val valorAsignado = when (numeroCarta) {
-        in 1..10 -> numeroCarta
-        in 11..13 -> 10 // Asignar 10 para JOTA, REINA, REY
-        else -> 0
-    }
-
-    // Agregar impresión para depuración
-    val nombreCarta = Baraja.listaCartas.find { it.idDrawable == idCarta }?.nombre
-    println("ID de la carta: $idCarta - Número de la carta: $numeroCarta - Valor asignado: $valorAsignado - Nombre de la carta: $nombreCarta")
-
-    return valorAsignado
-}
-
-/*
-fun obtenerValorCarta(idCarta: Int): Int {
-    val numeroCarta = idCarta-1
-    val valorAsignado = when (numeroCarta) {
-        in 1..10 -> numeroCarta
-        in 11..13 -> 10 // Asignar 10 para JOTA, REINA, REY
-        else -> 0
-    }
-        // Agregar impresión para depuración
-    val nombreCarta = Baraja.listaCartas.find { it.idDrawable == idCarta }?.nombre
-    println("ID de la carta: $idCarta - Número de la carta: $numeroCarta - Valor asignado: $valorAsignado - Nombre de la carta: $nombreCarta")
-
-    return valorAsignado
-
-    /*
-    val carta = Baraja.listaCartas.find { it.idDrawable == idCarta }
-    val valorAsignado = carta?.puntosMin ?: 0
-
-    return valorAsignado*/
-
-}
- */
