@@ -45,7 +45,17 @@ class Baraja {
             }
         }
         fun calcularPuntaje(cartas: List<Carta>): Int {
-            return cartas.sumBy { it.puntosMin }
+            val cantidadCartas = cartas.size
+            val tieneMasDeDosCartas = cantidadCartas > 2
+
+            return cartas.sumBy {
+                when(it.nombre){
+                    Naipes.AS ->
+                        if (tieneMasDeDosCartas && it.puntosMax == 11) 1 else 11
+                    Naipes.DIEZ, Naipes.JOTA, Naipes.REINA, Naipes.REY -> 10
+                    else -> it.puntosMin
+                }
+            }
         }
         fun reiniciarCartas() {
             listaCartas.forEach { it.usada = false }
