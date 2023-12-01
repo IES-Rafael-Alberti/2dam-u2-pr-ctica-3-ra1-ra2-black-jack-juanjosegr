@@ -1,4 +1,4 @@
-#Wed Nov 29 22:42:20 CET 2023
+#Fri Dec 01 19:39:23 CET 2023
 base.0=C\:\\Users\\juanj\\AndroidStudioProjects\\2dam-u2-pr-ctica-3-ra1-ra2-black-jack-juanjosegr\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
 base.1=C\:\\Users\\juanj\\AndroidStudioProjects\\2dam-u2-pr-ctica-3-ra1-ra2-black-jack-juanjosegr\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
 base.2=C\:\\Users\\juanj\\AndroidStudioProjects\\2dam-u2-pr-ctica-3-ra1-ra2-black-jack-juanjosegr\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\11\\classes.dex

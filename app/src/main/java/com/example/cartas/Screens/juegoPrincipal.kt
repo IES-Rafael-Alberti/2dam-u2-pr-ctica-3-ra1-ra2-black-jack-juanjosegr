@@ -60,6 +60,18 @@ fun Juego2Jugador(navController: NavHostController) {
     var puntajeJugador1 by remember { mutableIntStateOf(0) }
     var puntajeJugador2 by remember { mutableIntStateOf(0) }
 
+    if (puntajeJugador1 >= 21){
+        permitirObtenerCarta1 = false
+        textoPlantadoJug1 = "Plantado"
+    }
+
+    if (puntajeJugador2 >= 21) {
+        permitirObtenerCarta2 = false
+        textoPlantadoJug2 = "Plantado"
+    }
+
+    determinarGanador(puntajeJugador1,puntajeJugador2)
+
     MostrarTapete(R.drawable.tapetepro)
     MostrarCartaBocaAbajo()
 
@@ -152,6 +164,23 @@ fun Juego2Jugador(navController: NavHostController) {
         puntajeJugador2 = puntajeJugador2,
     )
 }
+
+
+fun determinarGanador(puntajeJugador1: Int, puntajeJugador2: Int) {
+    when {
+        puntajeJugador1 < 22 && puntajeJugador2 < 22 -> {
+            when {
+                puntajeJugador1 > puntajeJugador2 -> println("Gana jugador 1 linea 1")
+                puntajeJugador1 == puntajeJugador2 -> println("Empate por cartas")
+                else -> println("Gana jugador 2 linea 1")
+            }
+        }
+        puntajeJugador1 > 21 && puntajeJugador2 > 21 -> println("Empate por pasarse ambos jugadores")
+        puntajeJugador1 < 22 && puntajeJugador2 > 21 -> println("Gana jugador 1 por jugador 2 pasado")
+        puntajeJugador1 > 21 && puntajeJugador2 < 22 -> println("Gana jugador 2 por jugador 1 pasado")
+    }
+}
+
 
 @Composable
 fun MostrarCartasJugador1(cartasBocaArriba: List<Int>) {
