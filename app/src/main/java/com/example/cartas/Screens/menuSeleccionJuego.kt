@@ -51,7 +51,7 @@ fun SelectorMenus(navController: NavHostController) {
         ) {
             Button(
                 onClick = {
-                    navController.navigate(Routes.PantallaVsJugador.route)
+                    navController.navigate(Routes.Nombres.route)
                 },
                 modifier = Modifier.padding(top= 160.dp)
             ) {

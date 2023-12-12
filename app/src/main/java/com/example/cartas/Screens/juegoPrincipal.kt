@@ -33,10 +33,11 @@ import com.example.cartas.R
 import com.example.cartas.funciones.Baraja
 import com.example.cartas.funciones.Baraja.Companion.obtenerNombreRecurso
 import com.example.cartas.funciones.Carta
+import com.example.cartas.model.Routes
 
 
 @Composable
-fun Juego2Jugador(navController: NavHostController) {
+fun Juego2Jugador(navController: NavHostController, nombresViewModel: NombresViewModel) {
 
     val context = LocalContext.current
     var barajasNuevasJug1 by rememberSaveable { mutableStateOf("abajo") }
@@ -60,6 +61,9 @@ fun Juego2Jugador(navController: NavHostController) {
     var puntajeJugador1 by remember { mutableIntStateOf(0) }
     var puntajeJugador2 by remember { mutableIntStateOf(0) }
 
+    val jugador1 = nombresViewModel.obtenerNombreJugador1()
+    val jugador2 = nombresViewModel.obtenerNombreJugador2()
+
     if (puntajeJugador1 >= 21){
         permitirObtenerCarta1 = false
         textoPlantadoJug1 = "Plantado"
@@ -70,13 +74,17 @@ fun Juego2Jugador(navController: NavHostController) {
         textoPlantadoJug2 = "Plantado"
     }
 
-    determinarGanador(puntajeJugador1,puntajeJugador2)
+    if (textoPlantadoJug1 == "Plantado" && textoPlantadoJug2 == "Plantado") {
+        determinarGanador(navController,puntajeJugador1, puntajeJugador2, jugador1, jugador2)
+    }
 
     MostrarTapete(R.drawable.tapetepro)
     MostrarCartaBocaAbajo()
 
     MostrarCartasJugador1(listaCartasBocaArribaJugador1)
     MostrarCartasJugador2(listaCartasBocaArribaJugador2)
+
+
 
     BotonesJugador1(
         onDameCartaClick = {
@@ -158,28 +166,30 @@ fun Juego2Jugador(navController: NavHostController) {
     BotonVolverAlMenu(navController)
 
     TextosEnPantalla(
-        name1 = "Elian",
-        name2 = "Daniel",
+        name1 = jugador1,
+        name2 = jugador2,
         puntajeJugador1 = puntajeJugador1,
         puntajeJugador2 = puntajeJugador2,
     )
 }
 
 
-fun determinarGanador(puntajeJugador1: Int, puntajeJugador2: Int) {
-    when {
-        puntajeJugador1 < 22 && puntajeJugador2 < 22 -> {
+fun determinarGanador(navController: NavHostController, puntajeJugador1: Int, puntajeJugador2: Int,jugador1:String, jugador2:String) {
+    val ganador = when {
+        puntajeJugador1 > 21 && puntajeJugador2 > 21 -> "Empate por pasarse ambos jugadores"
+        puntajeJugador1 > 21 -> jugador2
+        puntajeJugador2 > 21 -> jugador1
+        else -> {
             when {
-                puntajeJugador1 > puntajeJugador2 -> println("Gana jugador 1 linea 1")
-                puntajeJugador1 == puntajeJugador2 -> println("Empate por cartas")
-                else -> println("Gana jugador 2 linea 1")
+                puntajeJugador1 > puntajeJugador2 -> jugador1
+                puntajeJugador1 == puntajeJugador2 -> "Empate por cartas"
+                else -> jugador2
             }
         }
-        puntajeJugador1 > 21 && puntajeJugador2 > 21 -> println("Empate por pasarse ambos jugadores")
-        puntajeJugador1 < 22 && puntajeJugador2 > 21 -> println("Gana jugador 1 por jugador 2 pasado")
-        puntajeJugador1 > 21 && puntajeJugador2 < 22 -> println("Gana jugador 2 por jugador 1 pasado")
     }
+    navController.navigate("${Routes.GanadorScreen.route}/$ganador")
 }
+
 
 
 @Composable
