@@ -13,6 +13,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavHostController
@@ -35,7 +36,7 @@ fun Nombres (navController: NavHostController, nombresViewModel: NombresViewMode
             Column(
                 modifier = Modifier.padding(16.dp)
             ) {
-                Text("Ingrese el nombre del Jugador 1:")
+                Text("Ingrese el nombre del Jugador 1:", color = Color.White)
                 TextField(
                     value = nombreJugador1,
                     onValueChange = { nombreJugador1 = it },
@@ -43,7 +44,7 @@ fun Nombres (navController: NavHostController, nombresViewModel: NombresViewMode
                         .fillMaxWidth()
                         .padding(vertical = 8.dp)
                 )
-                Text("Ingrese el nombre del Jugador 2:")
+                Text("Ingrese el nombre del Jugador 2:",color = Color.White)
                 TextField(
                     value = nombreJugador2,
                     onValueChange = { nombreJugador2 = it },
@@ -53,11 +54,14 @@ fun Nombres (navController: NavHostController, nombresViewModel: NombresViewMode
                 )
                 Button(
                     onClick = {
-                        showDialog = false // Cerrar el diálogo al presionar el botón
+                        showDialog = false
 
-                        nombresViewModel.guardarNombres(nombreJugador1, nombreJugador2)
+                        val nombreDefectoJugador1 = if (nombreJugador1.isBlank()) "Jugador 1" else nombreJugador1
+                        val nombreDefectoJugador2 = if (nombreJugador2.isBlank()) "Jugador 2" else nombreJugador2
 
-                        navController.navigate("${Routes.PantallaVsJugador.route}/$nombreJugador1/$nombreJugador2")
+                        nombresViewModel.guardarNombres(nombreDefectoJugador1, nombreDefectoJugador2)
+
+                        navController.navigate("${Routes.PantallaVsJugador.route}/$nombreDefectoJugador1/$nombreDefectoJugador2")
 
                     }
                 ) {

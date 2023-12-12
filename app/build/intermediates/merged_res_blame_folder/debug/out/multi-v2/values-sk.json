@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.cartas.app-mergeDebugResources-48:/values-sk/values-sk.xml",
+            "outputFile": "com.example.cartas.app-mergeDebugResources-50:/values-sk/values-sk.xml",
             "map": [
                 {
                     "source": "C:\\Users\\juanj\\.gradle\\caches\\transforms-3\\eca48feadccd6b7c34c6eeaa1851f3e2\\transformed\\ui-release\\res\\values-sk\\values-sk.xml",

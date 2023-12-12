@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.cartas.app-mergeDebugResources-48:/values-iw/values-iw.xml",
+            "outputFile": "com.example.cartas.app-mergeDebugResources-50:/values-iw/values-iw.xml",
             "map": [
                 {
                     "source": "C:\\Users\\juanj\\.gradle\\caches\\transforms-3\\eca48feadccd6b7c34c6eeaa1851f3e2\\transformed\\ui-release\\res\\values-iw\\values-iw.xml",

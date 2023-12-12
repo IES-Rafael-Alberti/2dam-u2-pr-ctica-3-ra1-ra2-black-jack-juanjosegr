@@ -16,7 +16,7 @@ import com.example.cartas.juegoCartas.funciones.ui.NombresViewModel
 import com.example.cartas.juegoCartas.funciones.model.Routes
 
 class MainActivity : ComponentActivity() {
-    private val nombresViewModel by viewModels<NombresViewModel>()
+    private val nombresViewModel: NombresViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,13 +37,11 @@ class MainActivity : ComponentActivity() {
                     val ganador = backStackEntry.arguments?.getString("ganador") ?: "Ganador Desconocido"
                     Ganador(navController, ganador,nombresViewModel)
                 }
-                composable(Routes.PantallaVsJugador.route + "/{jugador1}/{jugador2}") { backStackEntry ->
-                    val jugador1 = backStackEntry.arguments?.getString("jugador1") ?: ""
-                    val jugador2 = backStackEntry.arguments?.getString("jugador2") ?: ""
-                    Juego2Jugador(navController, nombresViewModel)
-                }
                 composable(Routes.Nombres.route) {
                     Nombres(navController, nombresViewModel)
+                }
+                composable(Routes.PantallaVsJugador.route + "/{jugador1}/{jugador2}") {
+                    Juego2Jugador(navController, nombresViewModel)
                 }
             }
         }
