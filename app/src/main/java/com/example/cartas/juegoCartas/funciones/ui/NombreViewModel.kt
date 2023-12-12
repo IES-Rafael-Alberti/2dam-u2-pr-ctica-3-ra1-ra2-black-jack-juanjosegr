@@ -1,4 +1,4 @@
-package com.example.cartas.Screens
+package com.example.cartas.juegoCartas.funciones.ui
 
 import androidx.lifecycle.ViewModel
 

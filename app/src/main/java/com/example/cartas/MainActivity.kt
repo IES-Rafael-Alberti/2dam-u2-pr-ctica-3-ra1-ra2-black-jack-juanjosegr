@@ -7,8 +7,13 @@ import androidx.activity.viewModels
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.cartas.Screens.*
-import com.example.cartas.model.Routes
+import com.example.cartas.juegoCartas.funciones.ui.Ganador
+import com.example.cartas.juegoCartas.funciones.ui.Juego2Jugador
+import com.example.cartas.juegoCartas.funciones.ui.JuegoVsIa
+import com.example.cartas.juegoCartas.funciones.ui.MenuPrincipal
+import com.example.cartas.juegoCartas.funciones.ui.Nombres
+import com.example.cartas.juegoCartas.funciones.ui.NombresViewModel
+import com.example.cartas.juegoCartas.funciones.model.Routes
 
 class MainActivity : ComponentActivity() {
     private val nombresViewModel by viewModels<NombresViewModel>()

@@ -1,15 +1,11 @@
-package com.example.cartas.Screens
+package com.example.cartas.juegoCartas.funciones.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
@@ -21,7 +17,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.cartas.R
-import com.example.cartas.model.Routes
+import com.example.cartas.juegoCartas.funciones.model.Routes
 
 @Composable
 fun Ganador(navController: NavHostController, ganador: String,nombresViewModel: NombresViewModel) {

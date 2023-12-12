@@ -1,4 +1,4 @@
-package com.example.cartas.Screens
+package com.example.cartas.juegoCartas.funciones.ui
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavHostController
 import com.example.cartas.R
-import com.example.cartas.model.Routes
+import com.example.cartas.juegoCartas.funciones.model.Routes
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

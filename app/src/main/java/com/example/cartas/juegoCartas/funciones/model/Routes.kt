@@ -1,4 +1,4 @@
-package com.example.cartas.model
+package com.example.cartas.juegoCartas.funciones.model
 
 sealed class Routes(val route: String) {
     object PantallaInicio : Routes("MenuPrincipal")

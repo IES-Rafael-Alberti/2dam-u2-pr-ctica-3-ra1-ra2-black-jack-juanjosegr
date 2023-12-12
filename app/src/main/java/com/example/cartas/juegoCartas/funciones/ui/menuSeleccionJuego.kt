@@ -1,4 +1,4 @@
-package com.example.cartas.Screens
+package com.example.cartas.juegoCartas.funciones.ui
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
@@ -20,7 +20,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.cartas.R
-import com.example.cartas.model.Routes
+import com.example.cartas.juegoCartas.funciones.model.Routes
 
 @Composable
 fun MenuPrincipal(navController: NavHostController) {

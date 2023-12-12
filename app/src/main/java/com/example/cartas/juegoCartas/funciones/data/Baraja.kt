@@ -1,4 +1,4 @@
-package com.example.cartas.funciones
+package com.example.cartas.juegoCartas.funciones.data
 
 enum class Palos {
     CORAZONES, DIAMANTES, TREBOLES, PICAS

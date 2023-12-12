@@ -1,4 +1,4 @@
-package com.example.cartas.Screens
+package com.example.cartas.juegoCartas.funciones.ui
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -30,10 +30,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.cartas.R
-import com.example.cartas.funciones.Baraja
-import com.example.cartas.funciones.Baraja.Companion.obtenerNombreRecurso
-import com.example.cartas.funciones.Carta
-import com.example.cartas.model.Routes
+import com.example.cartas.juegoCartas.funciones.data.Baraja
+import com.example.cartas.juegoCartas.funciones.data.Baraja.Companion.obtenerNombreRecurso
+import com.example.cartas.juegoCartas.funciones.data.Carta
+import com.example.cartas.juegoCartas.funciones.model.Routes
 
 
 @Composable
