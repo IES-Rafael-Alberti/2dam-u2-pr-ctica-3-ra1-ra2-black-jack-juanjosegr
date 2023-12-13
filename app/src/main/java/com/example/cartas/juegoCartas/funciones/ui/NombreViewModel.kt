@@ -1,21 +1,34 @@
 package com.example.cartas.juegoCartas.funciones.ui
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class NombresViewModel : ViewModel() {
-    private var jugador1Nombre: String = ""
-    private var jugador2Nombre: String = ""
+
+    private val _jugador1Nombre = MutableLiveData<String>()
+    private val _jugador2Nombre = MutableLiveData<String>()
+
+    val jugador1Nombre: LiveData<String> = _jugador1Nombre
+    val jugador2Nombre: LiveData<String> = _jugador2Nombre
 
     fun guardarNombres(jugador1: String, jugador2: String) {
-        jugador1Nombre = jugador1
-        jugador2Nombre = jugador2
+        _jugador1Nombre.value = jugador1
+        _jugador2Nombre.value = jugador2
     }
 
-    fun obtenerNombreJugador1(): String {
-        return jugador1Nombre
+    fun guardarNombreJugador1(jugador1: String) {
+        _jugador1Nombre.value = jugador1
     }
 
-    fun obtenerNombreJugador2(): String {
-        return jugador2Nombre
+    fun guardarNombreJugador2(jugador2: String) {
+        _jugador2Nombre.value = jugador2
+    }
+    fun obtenerNombreJugador1():String  {
+        return _jugador1Nombre.value ?: ""
+    }
+
+    fun obtenerNombreJugador2():String {
+        return _jugador2Nombre.value ?: ""
     }
 }
