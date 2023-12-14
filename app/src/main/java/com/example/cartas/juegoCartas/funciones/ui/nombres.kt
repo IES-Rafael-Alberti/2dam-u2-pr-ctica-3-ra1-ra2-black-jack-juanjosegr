@@ -22,14 +22,20 @@ import androidx.navigation.NavHostController
 import com.example.cartas.R
 import com.example.cartas.juegoCartas.funciones.model.Routes
 
+/**
+ * Composable que permite ingresar los nombres de los jugadores antes de comenzar el juego.
+ *
+ * @param navController Controlador de navegación para la app.
+ * @param nombresViewModel ViewModel que gestiona los nombres de los jugadores.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Nombres(navController: NavHostController, nombresViewModel: NombresViewModel) {
 
     MostrarTapete(R.drawable.tapetepro)
 
-    val nombreJugador1 by nombresViewModel.jugador1Nombre.observeAsState("")
-    val nombreJugador2 by nombresViewModel.jugador2Nombre.observeAsState("")
+    val nombreJugador1 by nombresViewModel.jugador1Nombre.observeAsState("") // Observa el nombre del jugador 1
+    val nombreJugador2 by nombresViewModel.jugador2Nombre.observeAsState("") // Observa el nombre del jugador 2
 
     var showDialog by rememberSaveable { mutableStateOf(true) }
 
@@ -42,6 +48,7 @@ fun Nombres(navController: NavHostController, nombresViewModel: NombresViewModel
                 modifier = Modifier.padding(16.dp)
             ) {
                 Text("Ingrese el nombre del Jugador 1:", color = Color.White)
+                // Campo de texto para el nombre del jugador 2
                 TextField(
                     value = nombreJugador1,
                     onValueChange = { nombresViewModel.guardarNombreJugador1(it) },
@@ -50,6 +57,7 @@ fun Nombres(navController: NavHostController, nombresViewModel: NombresViewModel
                         .padding(vertical = 8.dp)
                 )
                 Text("Ingrese el nombre del Jugador 2:", color = Color.White)
+                // Campo de texto para el nombre del jugador 2
                 TextField(
                     value = nombreJugador2,
                     onValueChange = { nombresViewModel.guardarNombreJugador2(it) },
@@ -57,22 +65,25 @@ fun Nombres(navController: NavHostController, nombresViewModel: NombresViewModel
                         .fillMaxWidth()
                         .padding(vertical = 8.dp)
                 )
+                // Botón para comenzar el juego con los nombres ingresados
                 Button(
                     onClick = {
-                        showDialog = false
+                        showDialog = false // Oculta el diálogo al comenzar el juego
 
+                        // Si no se ingresa un nombre, se establece un nombre por defecto
                         val nombreDefectoJugador1 =
                             if (nombreJugador1.isBlank()) "Jugador 1" else nombreJugador1
                         val nombreDefectoJugador2 =
                             if (nombreJugador2.isBlank()) "Jugador 2" else nombreJugador2
 
+                        // Guarda los nombres ingresados en el ViewModel
                         nombresViewModel.guardarNombres(
                             nombreDefectoJugador1,
                             nombreDefectoJugador2
                         )
 
+                        // Navega a la pantalla de juego versus jugador con los nombres establecidos
                         navController.navigate("${Routes.PantallaVsJugador.route}/$nombreDefectoJugador1/$nombreDefectoJugador2")
-
                     }
                 ) {
                     Text("Comenzar Juego")

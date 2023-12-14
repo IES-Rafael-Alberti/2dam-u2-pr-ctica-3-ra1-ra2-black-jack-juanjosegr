@@ -22,6 +22,11 @@ import androidx.navigation.NavHostController
 import com.example.cartas.R
 import com.example.cartas.juegoCartas.funciones.model.Routes
 
+/**
+ * Función que muestra el menú principal de la aplicación.
+ *
+ * @param navController Controlador de navegación para la app.
+ */
 @Composable
 fun MenuPrincipal(navController: NavHostController) {
 
@@ -30,6 +35,11 @@ fun MenuPrincipal(navController: NavHostController) {
 
 }
 
+/**
+ * Función que muestra un selector de menús en la interfaz.
+ *
+ * @param navController Controlador de navegación para la app.
+ */
 @Composable
 fun SelectorMenus(navController: NavHostController) {
     Box(
@@ -70,6 +80,11 @@ fun SelectorMenus(navController: NavHostController) {
     }
 }
 
+/**
+ * Composable que muestra una imagen de juego específica.
+ *
+ * @param imprimirRedIdJugadores Identificador del recurso de la imagen a mostrar.
+ */
 @Composable
 fun MostrarImagenesJuego(@DrawableRes imprimirRedIdJugadores: Int) {
     Image(
@@ -81,6 +96,11 @@ fun MostrarImagenesJuego(@DrawableRes imprimirRedIdJugadores: Int) {
     )
 }
 
+/**
+ * Composable que muestra un tapete de juego específico.
+ *
+ * @param tapeteImprimirResId Identificador del recurso del tapete a mostrar.
+ */
 @Composable
 fun MostrarTapete(@DrawableRes tapeteImprimirResId: Int) {
     Image(
@@ -91,6 +111,11 @@ fun MostrarTapete(@DrawableRes tapeteImprimirResId: Int) {
     )
 }
 
+/**
+ * Composable que muestra un botón para regresar al Menú Principal.
+ *
+ * @param navController Controlador de navegación para la app.
+ */
 @Composable
 fun BotonVolverAlMenu(navController: NavHostController) {
     Button(

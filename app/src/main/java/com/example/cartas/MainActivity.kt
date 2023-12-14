@@ -14,17 +14,21 @@ import com.example.cartas.juegoCartas.funciones.ui.MenuPrincipal
 import com.example.cartas.juegoCartas.funciones.ui.Nombres
 import com.example.cartas.juegoCartas.funciones.ui.NombresViewModel
 import com.example.cartas.juegoCartas.funciones.model.Routes
-import com.example.cartas.juegoCartas.funciones.ui.juegoPrincipalVM
+import com.example.cartas.juegoCartas.funciones.ui.JuegoPrincipalVM
 
+/**
+ * Clase principal que representa la actividad principal de la aplicación.
+ */
 class MainActivity : ComponentActivity() {
-    private val nombresViewModel: NombresViewModel by viewModels()
-    private val juegoViewModel: juegoPrincipalVM by viewModels()
+    private val nombresViewModel: NombresViewModel by viewModels()     // ViewModel para gestionar los nombres de los jugadores
+    private val juegoViewModel: JuegoPrincipalVM by viewModels()    // ViewModel principal del juego
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            val navController = rememberNavController()
+            val navController = rememberNavController()            // Controlador de navegación para la app
 
+            // Configuración de la navegación entre pantallas
             NavHost(
                 navController = navController,
                 startDestination = Routes.PantallaInicio.route

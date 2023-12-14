@@ -1,20 +1,29 @@
 package com.example.cartas.juegoCartas.funciones.data
 
-import androidx.lifecycle.MutableLiveData
-
+// Enumera los palos posibles de las cartas
 enum class Palos {
     CORAZONES, DIAMANTES, TREBOLES, PICAS
 }
 
+// Enumera los valores de las cartas
 enum class Naipes {
     AS, DOS, TRES, CUATRO, CINCO, SEIS, SIETE, OCHO, NUEVE, DIEZ, JOTA, REINA, REY
 
 }
 
+/**
+ * Clase que representa una baraja de cartas.
+ */
 class Baraja {
 
     companion object {
+        // Lista mutable que contendrá las cartas
         var listaCartas = arrayListOf<Carta>()
+
+        /**
+         * Función para crear una baraja estándar de cartas.
+         * Asigna un identificador gráfico a cada carta.
+         */
         fun crearBaraja() {
             var idDrawable = 1
             for (palo in Palos.values()) {
@@ -28,10 +37,17 @@ class Baraja {
             }
         }
 
+        /**
+         * Función para mezclar las cartas en la baraja.
+         */
         fun barajar() {
             listaCartas.shuffle()
         }
 
+        /**
+         * Función para obtener una carta de la baraja.
+         * Si la baraja está vacía, crea una nueva baraja y la reinicia.
+         */
         fun dameCarta(): Carta {
             if (listaCartas.isEmpty()) {
                 crearBaraja()
@@ -46,6 +62,10 @@ class Baraja {
                 dameCarta()
             }
         }
+
+        /**
+         * Función para calcular el puntaje total de un conjunto de cartas.
+         */
         fun calcularPuntaje(cartas: List<Carta>): Int {
             val cantidadCartas = cartas.size
             val tieneMasDeDosCartas = cantidadCartas > 2
@@ -59,10 +79,17 @@ class Baraja {
                 }
             }
         }
+
+        /**
+         * Función para reiniciar el estado de las cartas en la baraja.
+         */
         fun reiniciarCartas() {
             listaCartas.forEach { it.usada = false }
         }
 
+        /**
+         * Función para obtener el nombre del recurso gráfico asociado a una carta.
+         */
         fun obtenerNombreRecurso(carta: Carta): String {
             val paloString = when (carta.palo) {
                 Palos.CORAZONES -> "c"
