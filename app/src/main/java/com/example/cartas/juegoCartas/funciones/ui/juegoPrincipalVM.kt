@@ -1,140 +1,151 @@
 package com.example.cartas.juegoCartas.funciones.ui
 
-import android.annotation.SuppressLint
 import android.content.Context
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.navigation.NavHostController
 import com.example.cartas.juegoCartas.funciones.data.Baraja
+import com.example.cartas.juegoCartas.funciones.data.Baraja.Companion.obtenerNombreRecurso
 import com.example.cartas.juegoCartas.funciones.data.Carta
+import com.example.cartas.juegoCartas.funciones.model.Routes
 
-class juegoPrincipalVM : ViewModel(){
+class juegoPrincipalVM : ViewModel() {
 
-    private val _cartasJugador1 = MutableLiveData<List<Carta>>()
-    val cartasJugador1: LiveData<List<Carta>> = _cartasJugador1
-
-    private val _cartasJugador2 = MutableLiveData<List<Carta>>()
-    val cartasJugador2: LiveData<List<Carta>> = _cartasJugador2
-
+    private val _cartasJugador1 = MutableLiveData<List<Carta>>(emptyList())
+    private val _cartasJugador2 = MutableLiveData<List<Carta>>(emptyList())
     private var _puntajeJugador1 = MutableLiveData(0)
-    var puntajeJugador1: LiveData<Int> = _puntajeJugador1
-
     private val _puntajeJugador2 = MutableLiveData(0)
-    var puntajeJugador2: LiveData<Int> = _puntajeJugador2
-
     private val _permitirObtenerCartaJugador1 = MutableLiveData(true)
-    val permitirObtenerCarta1: LiveData<Boolean> = _permitirObtenerCartaJugador1
-
     private val _permitirObtenerCartaJugador2 = MutableLiveData(true)
-    val permitirObtenerCarta2: LiveData<Boolean> = _permitirObtenerCartaJugador2
-
     private var _barajasNuevasJug1 = MutableLiveData("abajo")
-    val barajasNuevasJug1: LiveData<String> = _barajasNuevasJug1
-
     private var _barajasNuevasJug2 = MutableLiveData("abajo")
-    val barajasNuevasJug2: LiveData<String> = _barajasNuevasJug2
+    private val _cartaBocaArribaJugador1 = MutableLiveData<Int>(null)
+    private val _cartaBocaArribaJugador2 = MutableLiveData<Int>(null)
+    private val _listaCartasBocaArribaJugador1 = MutableLiveData<List<Int>>()
+    private val _listaCartasBocaArribaJugador2 = MutableLiveData<List<Int>>()
+    private var _textoPlantadoJug1 = MutableLiveData("Dame carta")
+    private var _textoPlantadoJug2 = MutableLiveData("Dame carta")
+    private val _contadorJug1 = MutableLiveData<Int>()
+    private val _contadorJug2 = MutableLiveData<Int>()
 
-    private val _cartaBocaArribaJugador1 =  MutableLiveData<Int>(null)
-    val cartaBocaArribaJugador1: LiveData<Int?> = _cartaBocaArribaJugador1
 
-    private val _cartaBocaArribaJugador2 =  MutableLiveData<Int>(null)
-    val cartaBocaArribaJugador2: LiveData<Int?> = _cartaBocaArribaJugador2
-
-    private val _listaCartasBocaArribaJugador1 =  MutableLiveData<List<Int>>()
+    var puntajeJugador1: LiveData<Int> = _puntajeJugador1
+    var puntajeJugador2: LiveData<Int> = _puntajeJugador2
+    val permitirObtenerCartaJugador1: LiveData<Boolean> = _permitirObtenerCartaJugador1
+    val permitirObtenerCartaJugador2: LiveData<Boolean> = _permitirObtenerCartaJugador2
     val listaCartasBocaArribaJugador1: LiveData<List<Int>> = _listaCartasBocaArribaJugador1
-
-
-    private val _listaCartasBocaArribaJugador2  =  MutableLiveData<List<Int>>()
     val listaCartasBocaArribaJugador2: LiveData<List<Int>> = _listaCartasBocaArribaJugador2
+    val textoPlantadoJug1: LiveData<String> = _textoPlantadoJug1
+    val textoPlantadoJug2: LiveData<String> = _textoPlantadoJug2
+    val contadorjug1: LiveData<Int> = _contadorJug1
+    val contadorjug2: LiveData<Int> = _contadorJug2
 
 
-
-    fun obtenerCartaJugador1() {
-        if (_permitirObtenerCartaJugador1.value == true) {
+    fun obtenerCartaJugador1(context: Context) {
+        if (permitirObtenerCartaJugador1.value == true) {
             Baraja.barajar()
             if (Baraja.listaCartas.isEmpty()) {
                 Baraja.crearBaraja()
                 _barajasNuevasJug1.value = "abajo"
             }
+
             val cartaNueva = Baraja.dameCarta()
-            cartaNueva.let {
-                _barajasNuevasJug1.value = Baraja.obtenerNombreRecurso(it)
-                val cartaActualizada = actualizarCartaBocaArriba(_barajasNuevasJug1.value!!, context)
-                _cartaBocaArribaJugador1.value = cartaActualizada
-                if (cartaActualizada !in _listaCartasBocaArribaJugador1) {
-                    _listaCartasBocaArribaJugador1 += cartaActualizada
-                }
+            val cartaDrawable = obtenerNombreRecurso(cartaNueva)
+            val cartaDrawableId = actualizarCartaBocaArriba(cartaDrawable, context)
+            _cartaBocaArribaJugador1.value = cartaDrawableId
+
+            if (cartaDrawableId !in _listaCartasBocaArribaJugador1.value.orEmpty()) {
+                _listaCartasBocaArribaJugador1.value =
+                    _listaCartasBocaArribaJugador1.value.orEmpty() + cartaDrawableId
             }
-            _cartasJugador1.value += cartaNueva
-            _puntajeJugador1.value = Baraja.calcularPuntaje(_cartasJugador1)
+            _cartasJugador1.value = (_cartasJugador1.value.orEmpty() + cartaNueva)
+            _puntajeJugador1.value = Baraja.calcularPuntaje(_cartasJugador1.value.orEmpty())
         }
     }
 
-    @SuppressLint("DiscouragedApi")
-    fun actualizarCartaBocaArriba(carta: String, context: Context): Int {
-        return context.resources.getIdentifier(carta, "drawable", context.packageName)
-    }
-
-
-    /*fun obtenerCartaJugador2() {
-        if (permitirObtenerCarta2.value == true) {
+    fun obtenerCartaJugador2(context: Context) {
+        if (permitirObtenerCartaJugador2.value == true) {
             Baraja.barajar()
             if (Baraja.listaCartas.isEmpty()) {
                 Baraja.crearBaraja()
-                barajasNuevasJug2 = "abajo"
+                _barajasNuevasJug2.value = "abajo"
             }
+
             val cartaNueva = Baraja.dameCarta()
-            cartaNueva.let {
-                barajasNuevasJug2 = obtenerNombreRecurso(it)
-                val cartaActualizada = actualizarCartaBocaArriba(barajasNuevasJug2, context)
-                cartaBocaArribaJugador2 = cartaActualizada
-                if (cartaActualizada !in listaCartasBocaArribaJugador2) {
-                    listaCartasBocaArribaJugador2 += cartaActualizada
-                }
+            val cartaDrawable = obtenerNombreRecurso(cartaNueva)
+            val cartaDrawableId = actualizarCartaBocaArriba(cartaDrawable, context)
+            _cartaBocaArribaJugador2.value = cartaDrawableId
+            if (cartaDrawableId !in _listaCartasBocaArribaJugador2.value.orEmpty()) {
+                _listaCartasBocaArribaJugador2.value =
+                    _listaCartasBocaArribaJugador2.value.orEmpty() + cartaDrawableId
             }
-            cartasJugador2 += cartaNueva
-            puntajeJugador2 = Baraja.calcularPuntaje(cartasJugador2)
+            _cartasJugador2.value = (_cartasJugador2.value.orEmpty() + cartaNueva)
+            _puntajeJugador2.value = Baraja.calcularPuntaje(_cartasJugador2.value.orEmpty())
         }
     }
 
-    fun plantarseJug1(){
-        permitirObtenerCarta1 = false
-        textoPlantadoJug1 = "Plantado"
+    fun determinarGanador(
+        navController: NavHostController,
+        puntajeJugador1: Int,
+        puntajeJugador2: Int,
+        jugador1: String,
+        jugador2: String
+    ) {
+        if (puntajeJugador1 >= 21) {
+            _permitirObtenerCartaJugador1.value = false
+            _textoPlantadoJug1.value = "Plantado"
+        }
+
+        if (puntajeJugador2 >= 21) {
+            _permitirObtenerCartaJugador2.value = false
+            _textoPlantadoJug2.value = "Plantado"
+        }
+        if (textoPlantadoJug1.value == "Plantado" && textoPlantadoJug2.value == "Plantado") {
+            val ganador = when {
+                puntajeJugador1 > 21 && puntajeJugador2 > 21 -> "Empate por pasarse ambos jugadores"
+                puntajeJugador1 > 21 -> jugador2
+                puntajeJugador2 > 21 -> jugador1
+                else -> {
+                    when {
+                        puntajeJugador1 > puntajeJugador2 -> jugador1
+                        puntajeJugador1 == puntajeJugador2 -> "Empate por cartas"
+                        else -> jugador2
+                    }
+                }
+            }
+            navController.navigate("${Routes.GanadorScreen.route}/$ganador")
+        }
     }
 
-    fun plantarseJug2(){
-        permitirObtenerCarta2 = false
-        textoPlantadoJug2 = "Plantado"
+    fun plantarseJug1() {
+        _permitirObtenerCartaJugador1.value = false
+        _textoPlantadoJug1.value = "Plantado"
     }
+
+    fun plantarseJug2() {
+        _permitirObtenerCartaJugador2.value = false
+        _textoPlantadoJug2.value = "Plantado"
+    }
+
     fun reiniciarJuego() {
         Baraja.crearBaraja()
         Baraja.barajar()
         Baraja.reiniciarCartas()
-        barajasNuevasJug1 = "abajo"
-        barajasNuevasJug2 = "abajo"
-        cartaBocaArribaJugador1 = null
-        cartaBocaArribaJugador2 = null
-        listaCartasBocaArribaJugador1 = emptyList()
-        listaCartasBocaArribaJugador2 = emptyList()
-        permitirObtenerCarta1 = true
-        permitirObtenerCarta2 = true
-        textoPlantadoJug1 = "Dame carta"
-        textoPlantadoJug2 = "Dame carta"
-        puntajeJugador1 = 0
-        puntajeJugador2 = 0
-        cartasJugador1 = emptyList()
-        cartasJugador2 = emptyList()
-    }*/
-
-
-
-
-
-
+        _barajasNuevasJug1.value = "abajo"
+        _barajasNuevasJug2.value = "abajo"
+        _cartaBocaArribaJugador1.value = null
+        _cartaBocaArribaJugador2.value = null
+        _listaCartasBocaArribaJugador1.value = emptyList()
+        _listaCartasBocaArribaJugador2.value = emptyList()
+        _permitirObtenerCartaJugador1.value = true
+        _permitirObtenerCartaJugador2.value = true
+        _textoPlantadoJug1.value = "Dame carta"
+        _textoPlantadoJug2.value = "Dame carta"
+        _puntajeJugador1.value = 0
+        _puntajeJugador2.value = 0
+        _cartasJugador1.value = emptyList()
+        _cartasJugador2.value = emptyList()
+    }
 
 }
-

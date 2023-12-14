@@ -1,5 +1,7 @@
 package com.example.cartas.juegoCartas.funciones.data
 
+import androidx.lifecycle.MutableLiveData
+
 enum class Palos {
     CORAZONES, DIAMANTES, TREBOLES, PICAS
 }

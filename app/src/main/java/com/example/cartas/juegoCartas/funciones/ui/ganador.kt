@@ -1,5 +1,6 @@
 package com.example.cartas.juegoCartas.funciones.ui
 
+import androidx.activity.viewModels
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -20,11 +21,17 @@ import com.example.cartas.R
 import com.example.cartas.juegoCartas.funciones.model.Routes
 
 @Composable
-fun Ganador(navController: NavHostController, ganador: String,nombresViewModel: NombresViewModel) {
+fun Ganador(
+    navController: NavHostController,
+    ganador: String,
+    nombresViewModel: NombresViewModel,
+    juegoPrincipalVM: juegoPrincipalVM
+) {
     MostrarTapete(R.drawable.tapetepro)
 
     val jugador1 = nombresViewModel.obtenerNombreJugador1()
     val jugador2 = nombresViewModel.obtenerNombreJugador2()
+    val reiniciar = juegoPrincipalVM.reiniciarJuego()
 
     Column(
         modifier = Modifier
@@ -38,7 +45,10 @@ fun Ganador(navController: NavHostController, ganador: String,nombresViewModel: 
             verticalAlignment = Alignment.Top
         ) {
             Button(
-                onClick = { navController.navigate("${Routes.PantallaVsJugador.route}/$jugador1/$jugador2") },
+                onClick = {
+                    reiniciar
+                    navController.navigate("${Routes.PantallaVsJugador.route}/$jugador1/$jugador2")
+                },
                 modifier = Modifier.padding(8.dp)
             ) {
                 Text(text = "Volver")

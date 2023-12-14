@@ -11,44 +11,32 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.material3.Text
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.cartas.R
 import com.example.cartas.juegoCartas.funciones.data.Baraja
-import com.example.cartas.juegoCartas.funciones.data.Baraja.Companion.obtenerNombreRecurso
-import com.example.cartas.juegoCartas.funciones.data.Carta
-import com.example.cartas.juegoCartas.funciones.model.Routes
 
 
 @Composable
 fun Juego2Jugador(navController: NavHostController, nombresViewModel: NombresViewModel, juegoViewModel: juegoPrincipalVM) {
+    MostrarTapete(R.drawable.tapetepro)
+    MostrarCartaBocaAbajo()
 
-    var permitirObtenerCarta1 by remember { mutableStateOf(true) }
-    var permitirObtenerCarta2 by remember { mutableStateOf(true) }
-
-    var textoPlantadoJug1 by remember { mutableStateOf("Dame carta") }
-    var textoPlantadoJug2 by remember { mutableStateOf("Dame carta") }
-
-    var cartasJugador1 by remember { mutableStateOf(listOf<Carta>()) }
-    var cartasJugador2 by remember { mutableStateOf(listOf<Carta>()) }
+    val context = LocalContext.current
 
     val jugador1 = nombresViewModel.obtenerNombreJugador1()
     val jugador2 = nombresViewModel.obtenerNombreJugador2()
@@ -56,56 +44,45 @@ fun Juego2Jugador(navController: NavHostController, nombresViewModel: NombresVie
     val puntajeJugador1 by juegoViewModel.puntajeJugador1.observeAsState(0)
     val puntajeJugador2 by juegoViewModel.puntajeJugador2.observeAsState(0)
 
-    val listaCartasBocaArribaJugador1 by juegoViewModel.listaCartasBocaArribaJugador1.observeAsState()
-    val listaCartasBocaArribaJugador2 by juegoViewModel.listaCartasBocaArribaJugador2.observeAsState()
+    val listaCartasBocaArribaJugador1 by juegoViewModel.listaCartasBocaArribaJugador1.observeAsState(emptyList())
+    val listaCartasBocaArribaJugador2 by juegoViewModel.listaCartasBocaArribaJugador2.observeAsState(emptyList())
+
+    val textoPlantadoJug1 by juegoViewModel.textoPlantadoJug1.observeAsState("")
+    val textoPlantadoJug2 by juegoViewModel.textoPlantadoJug2.observeAsState("")
+
+    val contadorJugador1 by juegoViewModel.contadorjug1.observeAsState(0)
+    val contadorJugador2 by juegoViewModel.contadorjug2.observeAsState(0)
 
 
+    MostrarCartasJugador1(listaCartasBocaArribaJugador1,contadorJugador1)
+    MostrarCartasJugador2(listaCartasBocaArribaJugador2,contadorJugador2)
 
-    if (puntajeJugador1 >= 21){
-        permitirObtenerCarta1 = false
-        textoPlantadoJug1 = "Plantado"
-    }
-
-    if (puntajeJugador2 >= 21) {
-        permitirObtenerCarta2 = false
-        textoPlantadoJug2 = "Plantado"
-    }
-
-    if (textoPlantadoJug1 == "Plantado" && textoPlantadoJug2 == "Plantado") {
-        determinarGanador(navController,puntajeJugador1, puntajeJugador2, jugador1, jugador2)
-    }
-
-    MostrarTapete(R.drawable.tapetepro)
-    MostrarCartaBocaAbajo()
-
-    MostrarCartasJugador1(listaCartasBocaArribaJugador1)
-    //MostrarCartasJugador2(listaCartasBocaArribaJugador2)
-
+    juegoViewModel.determinarGanador(navController,puntajeJugador1, puntajeJugador2,jugador1, jugador2)
 
 
     BotonesJugador1(
         onDameCartaClick = {
-            juegoViewModel.obtenerCartaJugador1()
+            juegoViewModel.obtenerCartaJugador1(context)
         },
         onPlantarseClick = {
-            //juegoViewModel.plantarseJug1()
+            juegoViewModel.plantarseJug1()
         },
         textoBoton = textoPlantadoJug1
     )
 
     BotonesJugador2(
         onDameCartaClick = {
-            //juegoViewModel.obtenerCartaJugador2()
+            juegoViewModel.obtenerCartaJugador2(context)
         },
         onPlantarseClick = {
-            //juegoViewModel.plantarseJug2()
+            juegoViewModel.plantarseJug2()
         },
         textoBoton = textoPlantadoJug2
     )
 
     BotonBarajas(
         onBarajarClick = {
-            //juegoViewModel.reiniciarJuego()
+            juegoViewModel.reiniciarJuego()
         })
 
     BotonVolverAlMenu(navController)
@@ -118,27 +95,13 @@ fun Juego2Jugador(navController: NavHostController, nombresViewModel: NombresVie
     )
 }
 
-
-fun determinarGanador(navController: NavHostController, puntajeJugador1: Int, puntajeJugador2: Int,jugador1:String, jugador2:String) {
-    val ganador = when {
-        puntajeJugador1 > 21 && puntajeJugador2 > 21 -> "Empate por pasarse ambos jugadores"
-        puntajeJugador1 > 21 -> jugador2
-        puntajeJugador2 > 21 -> jugador1
-        else -> {
-            when {
-                puntajeJugador1 > puntajeJugador2 -> jugador1
-                puntajeJugador1 == puntajeJugador2 -> "Empate por cartas"
-                else -> jugador2
-            }
-        }
-    }
-    navController.navigate("${Routes.GanadorScreen.route}/$ganador")
+@SuppressLint("DiscouragedApi")
+fun actualizarCartaBocaArriba(carta: String, context: Context): Int {
+    return context.resources.getIdentifier(carta, "drawable", context.packageName)
 }
 
-
-
 @Composable
-fun MostrarCartasJugador1(cartasBocaArriba: List<Int>) {
+fun MostrarCartasJugador1(cartasBocaArriba: List<Int>, contcartas:Int ) {
     Column(
         Modifier
             .fillMaxSize()
@@ -148,8 +111,7 @@ fun MostrarCartasJugador1(cartasBocaArriba: List<Int>) {
     ) {
         LazyRow(
             content = {
-                items(cartasBocaArriba.size) { index ->
-                    val carta = cartasBocaArriba[index]
+                items(cartasBocaArriba) { carta ->
                     Image(
                         painter = painterResource(id = carta),
                         contentDescription = "",
@@ -162,9 +124,8 @@ fun MostrarCartasJugador1(cartasBocaArriba: List<Int>) {
     }
 }
 
-
 @Composable
-fun MostrarCartasJugador2(cartasBocaArriba: List<Int>) {
+fun MostrarCartasJugador2(cartasBocaArriba: List<Int>,contcartas:Int) {
     Column(
         Modifier
             .fillMaxSize()
@@ -174,8 +135,7 @@ fun MostrarCartasJugador2(cartasBocaArriba: List<Int>) {
     ) {
         LazyRow(
             content = {
-                items(cartasBocaArriba.size) { index ->
-                    val carta = cartasBocaArriba[index]
+                items(cartasBocaArriba) { carta ->
                     Image(
                         painter = painterResource(id = carta),
                         contentDescription = "",
@@ -340,13 +300,6 @@ fun BotonBarajas(onBarajarClick: () -> Unit) {
         }
     }
 }
-
-/*
-@SuppressLint("DiscouragedApi")
-fun actualizarCartaBocaArriba(carta: String, context: Context): Int {
-    return context.resources.getIdentifier(carta, "drawable", context.packageName)
-}
-*/
 
 @Composable
 fun TextosEnPantalla (name1: String,name2: String,puntajeJugador1: Int,puntajeJugador2: Int) {
