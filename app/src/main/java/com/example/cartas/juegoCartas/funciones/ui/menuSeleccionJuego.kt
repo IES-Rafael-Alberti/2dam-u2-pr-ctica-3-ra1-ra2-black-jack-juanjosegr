@@ -63,14 +63,14 @@ fun SelectorMenus(navController: NavHostController) {
                 onClick = {
                     navController.navigate(Routes.Nombres.route)
                 },
-                modifier = Modifier.padding(top= 160.dp)
+                modifier = Modifier.padding(top = 160.dp)
             ) {
                 Text(text = "2 Jugadores")
             }
             Spacer(modifier = Modifier.height(160.dp))
             Button(
                 onClick = {
-                     navController.navigate(Routes.PantallaVsIa.route)
+                    navController.navigate(Routes.PantallaVsIa.route)
                 },
                 modifier = Modifier.padding(20.dp)
             ) {
@@ -124,5 +124,44 @@ fun BotonVolverAlMenu(navController: NavHostController) {
         },
     ) {
         Text(text = "Volver al Menú Principal")
+    }
+}
+
+/**
+ * Función que muestra dos imágenes de una carta boca abajo en la pantalla.
+ */
+@Composable
+fun MostrarCartaBocaAbajo() {
+    Column(
+        Modifier
+            .fillMaxSize()
+            .padding(bottom = 125.dp),
+        verticalArrangement = Arrangement.Bottom,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Box {
+            Image(
+                painter = painterResource(id = R.drawable.cartaabajoguapa),
+                contentDescription = "",
+                modifier = Modifier
+                    .size(150.dp)
+            )
+        }
+    }
+    Column(
+        Modifier
+            .fillMaxSize()
+            .padding(top = 100.dp),
+        verticalArrangement = Arrangement.Top,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Box {
+            Image(
+                painter = painterResource(id = R.drawable.cartaabajoguapa),
+                contentDescription = "",
+                modifier = Modifier
+                    .size(150.dp)
+            )
+        }
     }
 }

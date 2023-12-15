@@ -41,11 +41,11 @@ fun Juego2Jugador(
     nombresViewModel: NombresViewModel,
     juegoViewModel: JuegoPrincipalVM
 ) {
-    MostrarTapete(R.drawable.tapetepro) // Muestra un tapete de juego
+    MostrarTapete(R.drawable.tapetepro)                     // Muestra un tapete de juego
+    MostrarCartaBocaAbajo()                                 // Muestra una carta boca abajo
+    BotonVolverAlMenu(navController)                        // Botón para volver al menú principal
 
-    MostrarCartaBocaAbajo() // Muestra una carta boca abajo
-
-    val context = LocalContext.current // Obtiene el contexto actual
+    val context = LocalContext.current                      // Obtiene el contexto actual
 
     // Obtiene los nombres de los jugadores
     val jugador1 = nombresViewModel.obtenerNombreJugador1()
@@ -68,42 +68,42 @@ fun Juego2Jugador(
     val contadorJugador2 by juegoViewModel.contadorjug2.observeAsState(0)
 
     // Muestra las cartas boca arriba de los jugadores
-    MostrarCartasJugador1(listaCartasBocaArribaJugador1, listaCartasBocaArribaJugador2, contadorJugador1, contadorJugador2)
-
-    // Determina el ganador del juego
-    juegoViewModel.determinarGanador(navController, puntajeJugador1, puntajeJugador2, jugador1, jugador2)
-
-    // Botones para el jugador 1
-    BotonesJugador1(
-        onDameCartaClick = {
-            juegoViewModel.obtenerCartaJugador1(context)
-        },
-        onPlantarseClick = {
-            juegoViewModel.plantarseJug1()
-        },
-        textoBoton = textoPlantadoJug1
+    MostrarCartasJugadores(
+        listaCartasBocaArribaJugador1,
+        listaCartasBocaArribaJugador2,
+        contadorJugador1,
+        contadorJugador2
     )
 
-    // Botones para el jugador 2
-    BotonesJugador2(
-        onDameCartaClick = {
+    // Determina el ganador del juego
+    juegoViewModel.determinarGanador(
+        navController,
+        puntajeJugador1,
+        puntajeJugador2,
+        jugador1,
+        jugador2
+    )
+
+    // Botones para los jugadores
+    BotonesJugadores(
+        onDameCartaClickJug1 = {
+            juegoViewModel.obtenerCartaJugador1(context)
+        },
+        onPlantarseClickJug1 = {
+            juegoViewModel.plantarseJug1()
+        },
+        textoBotonJug1 = textoPlantadoJug1,
+        onDameCartaClickJug2 = {
             juegoViewModel.obtenerCartaJugador2(context)
         },
-        onPlantarseClick = {
+        onPlantarseClickJug2 = {
             juegoViewModel.plantarseJug2()
         },
-        textoBoton = textoPlantadoJug2
+        textoBotonJug2 = textoPlantadoJug2
     )
 
     // Botón para barajar las cartas
-    BotonBarajas(
-        onBarajarClick = {
-            juegoViewModel.reiniciarJuego()
-        }
-    )
-
-    // Botón para volver al menú principal
-    BotonVolverAlMenu(navController)
+    BotonBarajas(onBarajarClick = { juegoViewModel.reiniciarJuego() })
 
     // Muestra los nombres y puntajes de los jugadores en pantalla
     TextosEnPantalla(
@@ -134,7 +134,12 @@ fun actualizarCartaBocaArriba(carta: String, context: Context): Int {
  * @param contcartas2 Cantidad de cartas boca arriba del jugador 2.
  */
 @Composable
-fun MostrarCartasJugador1(cartasBocaArriba1: List<Int>,cartasBocaArriba2: List<Int>, contcartas1:Int, contcartas2:Int ) {
+fun MostrarCartasJugadores(
+    cartasBocaArriba1: List<Int>,
+    cartasBocaArriba2: List<Int>,
+    contcartas1: Int,
+    contcartas2: Int
+) {
     Column(
         Modifier
             .fillMaxSize()
@@ -177,57 +182,26 @@ fun MostrarCartasJugador1(cartasBocaArriba1: List<Int>,cartasBocaArriba2: List<I
     }
 }
 
-/**
- * Función que muestra dos imágenes de una carta boca abajo en la pantalla.
- */
-@Composable
-fun MostrarCartaBocaAbajo() {
-    Column(
-        Modifier
-            .fillMaxSize()
-            .padding(bottom = 125.dp),
-        verticalArrangement = Arrangement.Bottom,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Box {
-            Image(
-                painter = painterResource(id = R.drawable.cartaabajoguapa),
-                contentDescription = "",
-                modifier = Modifier
-                    .size(150.dp)
-            )
-        }
-    }
-    Column(
-        Modifier
-            .fillMaxSize()
-            .padding(top = 100.dp),
-        verticalArrangement = Arrangement.Top,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Box {
-            Image(
-                painter = painterResource(id = R.drawable.cartaabajoguapa),
-                contentDescription = "",
-                modifier = Modifier
-                    .size(150.dp)
-            )
-        }
-    }
-}
+
 
 /**
- * Función que muestra los botones de acción para el jugador 1 en la interfaz del juego.
+ * Función que muestra los botones de acción para los jugadores en la interfaz del juego.
  *
- * @param onDameCartaClick Acción a ejecutar al hacer clic en el botón "Dame carta".
- * @param onPlantarseClick Acción a ejecutar al hacer clic en el botón "Plantarse".
- * @param textoBoton Texto dinámico para el botón principal ("Dame carta" o "Plantarse").
+ * @param onDameCartaClickJug1 Acción a ejecutar al hacer clic en el botón "Dame carta".
+ * @param onPlantarseClickJug1 Acción a ejecutar al hacer clic en el botón "Plantarse".
+ * @param textoBotonJug1 Texto dinámico para el botón principal ("Dame carta" o "Plantarse").
+ * @param onDameCartaClickJug2 Acción a ejecutar al hacer clic en el botón "Dame carta".
+ * @param onPlantarseClickJug2 Acción a ejecutar al hacer clic en el botón "Plantarse".
+ * @param textoBotonJug2 Texto dinámico para el botón principal ("Dame carta" o "Plantarse").
  */
 @Composable
-fun BotonesJugador1(
-    onDameCartaClick: () -> Unit,
-    onPlantarseClick: () -> Unit,
-    textoBoton: String
+fun BotonesJugadores(
+    onDameCartaClickJug1: () -> Unit,
+    onPlantarseClickJug1: () -> Unit,
+    textoBotonJug1: String,
+    onDameCartaClickJug2: () -> Unit,
+    onPlantarseClickJug2: () -> Unit,
+    textoBotonJug2: String
 ) {
     Column(
         Modifier
@@ -241,22 +215,22 @@ fun BotonesJugador1(
         ) {
             Button(
                 onClick = {
-                    if (textoBoton == "Dame carta") {
-                        onDameCartaClick()
+                    if (textoBotonJug1 == "Dame carta") {
+                        onDameCartaClickJug1()
                     } else {
-                        onPlantarseClick()
+                        onPlantarseClickJug1()
                     }
                 },
                 modifier = Modifier.padding(end = 10.dp),
                 colors = ButtonDefaults.textButtonColors(Color.Red)
             ) {
                 Text(
-                    text = textoBoton,
+                    text = textoBotonJug1,
                     color = Color.White,
                 )
             }
             Button(
-                onClick = { onPlantarseClick() },
+                onClick = { onPlantarseClickJug1() },
                 modifier = Modifier.padding(end = 10.dp),
                 colors = ButtonDefaults.textButtonColors(Color.DarkGray)
             ) {
@@ -268,21 +242,6 @@ fun BotonesJugador1(
             }
         }
     }
-}
-
-/**
- * Función que muestra los botones de acción para el jugador 2 en la interfaz del juego.
- *
- * @param onDameCartaClick Acción a ejecutar al hacer clic en el botón "Dame carta".
- * @param onPlantarseClick Acción a ejecutar al hacer clic en el botón "Plantarse".
- * @param textoBoton Texto dinámico para el botón principal ("Dame carta" o "Plantarse").
- */
-@Composable
-fun BotonesJugador2(
-    onDameCartaClick: () -> Unit,
-    onPlantarseClick: () -> Unit,
-    textoBoton: String
-) {
     Column(
         Modifier
             .fillMaxSize()
@@ -295,22 +254,22 @@ fun BotonesJugador2(
         ) {
             Button(
                 onClick = {
-                    if (textoBoton == "Dame carta") {
-                        onDameCartaClick()
+                    if (textoBotonJug2 == "Dame carta") {
+                        onDameCartaClickJug2()
                     } else {
-                        onPlantarseClick()
+                        onPlantarseClickJug2()
                     }
                 },
                 modifier = Modifier.padding(end = 10.dp),
                 colors = ButtonDefaults.textButtonColors(Color.Red)
             ) {
                 Text(
-                    text = textoBoton,
+                    text = textoBotonJug2,
                     color = Color.White,
                 )
             }
             Button(
-                onClick = { onPlantarseClick() },
+                onClick = { onPlantarseClickJug2() },
                 modifier = Modifier.padding(end = 10.dp),
                 colors = ButtonDefaults.textButtonColors(Color.DarkGray)
             ) {
@@ -361,7 +320,7 @@ fun BotonBarajas(onBarajarClick: () -> Unit) {
  * @param puntajeJugador2 Puntaje del jugador 2.
  */
 @Composable
-fun TextosEnPantalla (name1: String,name2: String,puntajeJugador1: Int,puntajeJugador2: Int) {
+fun TextosEnPantalla(name1: String, name2: String, puntajeJugador1: Int, puntajeJugador2: Int) {
     Box(
         Modifier.fillMaxSize()
     ) {
