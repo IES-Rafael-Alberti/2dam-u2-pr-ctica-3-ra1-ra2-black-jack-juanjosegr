@@ -9,12 +9,13 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.cartas.juegoCartas.funciones.ui.Ganador
 import com.example.cartas.juegoCartas.funciones.ui.Juego2Jugador
-import com.example.cartas.juegoCartas.funciones.ui.JuegoVsIa
+import com.example.cartas.juegoCartas.funciones.ui.JuegoCartaAlta
 import com.example.cartas.juegoCartas.funciones.ui.MenuPrincipal
 import com.example.cartas.juegoCartas.funciones.ui.Nombres
 import com.example.cartas.juegoCartas.funciones.ui.NombresViewModel
 import com.example.cartas.juegoCartas.funciones.model.Routes
 import com.example.cartas.juegoCartas.funciones.ui.JuegoPrincipalVM
+import com.example.cartas.juegoCartas.funciones.ui.juegoCartaAltaVM
 
 /**
  * Clase principal que representa la actividad principal de la aplicación.
@@ -22,7 +23,7 @@ import com.example.cartas.juegoCartas.funciones.ui.JuegoPrincipalVM
 class MainActivity : ComponentActivity() {
     private val nombresViewModel: NombresViewModel by viewModels()     // ViewModel para gestionar los nombres de los jugadores
     private val juegoViewModel: JuegoPrincipalVM by viewModels()    // ViewModel principal del juego
-
+    private val juegoCartaAltaViewModel: juegoCartaAltaVM by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -37,7 +38,7 @@ class MainActivity : ComponentActivity() {
                     MenuPrincipal(navController)
                 }
                 composable(Routes.PantallaVsIa.route) {
-                    JuegoVsIa(navController)
+                    JuegoCartaAlta(navController,juegoCartaAltaViewModel)
                 }
                 composable(Routes.GanadorScreen.route + "/{ganador}") { backStackEntry ->
                     val ganador = backStackEntry.arguments?.getString("ganador") ?: "Ganador Desconocido"

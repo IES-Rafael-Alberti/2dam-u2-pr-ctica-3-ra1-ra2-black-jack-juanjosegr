@@ -14,7 +14,7 @@ sealed class Routes(val route: String) {
     object PantallaVsJugador : Routes("Juego2Jugador")
 
     // Objeto que representa la pantalla de juego versus la inteligencia artificial
-    object PantallaVsIa : Routes("PantallaVsIa")
+    object PantallaVsIa : Routes("JuegoCartaAlta")
 
     // Objeto que representa la pantalla de resultado con el nombre del ganador
     object GanadorScreen : Routes("Ganador/{ganador}")

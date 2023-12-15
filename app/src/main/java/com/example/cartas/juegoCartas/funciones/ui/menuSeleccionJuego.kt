@@ -74,7 +74,7 @@ fun SelectorMenus(navController: NavHostController) {
                 },
                 modifier = Modifier.padding(20.dp)
             ) {
-                Text(text = "Vs banca")
+                Text(text = "Carta alta")
             }
         }
     }
