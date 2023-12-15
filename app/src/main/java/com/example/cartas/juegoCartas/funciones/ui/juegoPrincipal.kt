@@ -67,11 +67,8 @@ fun Juego2Jugador(
     val contadorJugador1 by juegoViewModel.contadorjug1.observeAsState(0)
     val contadorJugador2 by juegoViewModel.contadorjug2.observeAsState(0)
 
-    // Muestra las cartas boca arriba del jugador 1
-    MostrarCartasJugador1(listaCartasBocaArribaJugador1, contadorJugador1)
-
-    // Muestra las cartas boca arriba del jugador 2
-    MostrarCartasJugador2(listaCartasBocaArribaJugador2, contadorJugador2)
+    // Muestra las cartas boca arriba de los jugadores
+    MostrarCartasJugador1(listaCartasBocaArribaJugador1, listaCartasBocaArribaJugador2, contadorJugador1, contadorJugador2)
 
     // Determina el ganador del juego
     juegoViewModel.determinarGanador(navController, puntajeJugador1, puntajeJugador2, jugador1, jugador2)
@@ -130,13 +127,14 @@ fun actualizarCartaBocaArriba(carta: String, context: Context): Int {
 }
 
 /**
- * Composable que muestra las cartas boca arriba del jugador 1 en una disposición de fila horizontal.
- *
- * @param cartasBocaArriba Lista de identificadores de recursos de las cartas boca arriba del jugador 1.
- * @param contcartas Cantidad de cartas boca arriba del jugador 1.
+ * Composable que muestra las cartas boca arriba de los jugadores en una disposición de fila horizontal.
+ * @param cartasBocaArriba1 Lista de identificadores de recursos de las cartas boca arriba del jugador 1.
+ * @param contcartas1 Cantidad de cartas boca arriba del jugador 1.
+ * @param cartasBocaArriba2 Lista de identificadores de recursos de las cartas boca arriba del jugador 2.
+ * @param contcartas2 Cantidad de cartas boca arriba del jugador 2.
  */
 @Composable
-fun MostrarCartasJugador1(cartasBocaArriba: List<Int>, contcartas:Int ) {
+fun MostrarCartasJugador1(cartasBocaArriba1: List<Int>,cartasBocaArriba2: List<Int>, contcartas1:Int, contcartas2:Int ) {
     Column(
         Modifier
             .fillMaxSize()
@@ -146,7 +144,7 @@ fun MostrarCartasJugador1(cartasBocaArriba: List<Int>, contcartas:Int ) {
     ) {
         LazyRow(
             content = {
-                items(cartasBocaArriba) { carta ->
+                items(cartasBocaArriba1) { carta ->
                     Image(
                         painter = painterResource(id = carta),
                         contentDescription = "",
@@ -157,16 +155,6 @@ fun MostrarCartasJugador1(cartasBocaArriba: List<Int>, contcartas:Int ) {
             }
         )
     }
-}
-
-/**
- * Composable que muestra las cartas boca arriba del jugador 2 en una disposición de fila horizontal.
- *
- * @param cartasBocaArriba Lista de identificadores de recursos de las cartas boca arriba del jugador 2.
- * @param contcartas Cantidad de cartas boca arriba del jugador 2.
- */
-@Composable
-fun MostrarCartasJugador2(cartasBocaArriba: List<Int>,contcartas:Int) {
     Column(
         Modifier
             .fillMaxSize()
@@ -176,7 +164,7 @@ fun MostrarCartasJugador2(cartasBocaArriba: List<Int>,contcartas:Int) {
     ) {
         LazyRow(
             content = {
-                items(cartasBocaArriba) { carta ->
+                items(cartasBocaArriba2) { carta ->
                     Image(
                         painter = painterResource(id = carta),
                         contentDescription = "",
